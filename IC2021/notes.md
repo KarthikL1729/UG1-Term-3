@@ -112,18 +112,91 @@ Where, $H(X_1, X_2)$ is the joint entropy of $X_1$ and $X_2$. We will be using $
 
 ---
 
+Proof for $H(X_1, X_2) = H(X_1) + H(X_2)$ where $X_1, X_2$ are independent random variables.
+Independent random variables can be defined as two variables that are always independent for all events.
 
-- Entropy equation manipulation using disjoint event probability.
-- Disjoint events and their properties.
-- Theorem of Total probability.
-- Conditional probability
-  Nothing else very significant, just rewatch to understand stuff better.
+$H(X_1, X_2) = \displaystyle \sum_{x_1 \in \mathcal{X_1}, x_2 \in \mathcal{X_2}}P(X_1 = x_1, X_2 = x_2)\cdot log(1/P(X_1 = x_1, X_2 = x_2))$
+by definition.
+Now, we can split that summation into a double summation (Like a nested for loop, one over $X_1$ and one over $X_2$) and we can split the log term too. We can split them into two separate terms and sum them over their respective summations. After manipulation and using total probability theorem, that gives us
+
+![p1](Screenshot%20from%202021-06-07%2021-30-57.png)
+After this, we can just use total probability theorem on the inner summation, and we have our result.
+
+Now, if $X_1, X_2$ are NOT independent, we define a probabiltiy measure called conditional probability.
+
+$P(X_2 = x_2|X_1 = x_1) = P(X_2 = x_2, X_1 = x_1)/P(X_1 = x_1)$
+where $P(X_1 = x_1) \neq 0$
+
+Note that $P(X_2 = x_2|X_1 = x_1) = P(X_2 = x_2)$ for independent events.
+
+So, we can say that
+
+$\displaystyle\sum_{x_2 \in \mathcal{X_2}} P(X_2 = x_2|X_1 = x_1) = 1$
+
+So, conditional probability can be considered a probability distribution in itself.
+
+So conditional entropy could be defined as,
+
+$H(X_2|X_1) = \displaystyle\sum_{x_1 \in \mathcal{X_1}} P(X_1 = x_1)\cdot H(X_2|X_1 = x_1)$
+
+while, $H(X_2|X_1 = x_1)$ is deinfed as,
+
+$H(X_2|X_1 = x_1) = \displaystyle\sum_{x_2 \in \mathcal{X_2}} P(X_2 = x_2|X_1 = x_1)\cdot log(1/(X_2 = x_2|X_1 = x_1))$
+
+Intuitively makes sense.
+
+A more general equation now would be,
+
+$H(X_2, X_1) = H(X_1) + H(X_2|X_1)$ or shuffle the order accordingly, shouldn't make a difference. Oh lol confirmed in the next class.
 
 ---
 
 ## 2 June 2021
 
 ---
+
+If f is a function, then Support(f) or sup(f) is all the inputs in its domain that give a non zero output.
+
+Proof for $H(X, Y) = H(X) + H(Y|X)$
+
+$H(X|Y) = \displaystyle\sum_{y \in sup(P_y)} P_Y(y)\cdot H(X|Y = y)$ 
+
+where
+
+$H(X|Y = y) = \displaystyle\sum_{x\in sup(P_X)}P(x|y) \cdot log(1/P(x|y))$
+Now, if we expand the RHS, in the main eqn, we get
+
+![P2](Screenshot%20from%202021-06-07%2022-56-00.png)
+This is what we need, as the final expression is $H(X, Y)$.
+
+### Some properties of entropy
+
+Can we bind $H(X)$ from above and below?
+
+Claim : $0 \leq H(X) \leq log|\mathcal{X}|$
+
+- Proof for $H(X) \geq 0$
+  Trivial, as $P(x) = 0 \ \forall\  x \in sup(P_x)$
+  Exactly 0 when $|sup(P_x)| = 1$.
+
+- Proof for $H(X) \leq log|\mathcal{X}|$
+  As we know, log is a concave function.
+  So, $log(\lambda_1a + \lambda_2b) \geq \lambda_1 log(a) + \lambda_2log(b)$. This is **Jensen's inequality** in short. $\lambda_1 + \lambda_2 = 1, both\ \geq 0$. This combination is called a convex combination.
+  It's the reverse for a convex function. Image below explains it in detail.
+  ![p3](Screenshot%20from%202021-06-08%2000-16-30.png)
+
+  Now, we can write $H(X)$ as
+
+  $H(X) = \displaystyle\sum_{x \in sup(P_x)}P(x)log(1/P(x))$
+
+  This resembles a convex combination. So we can say that,
+
+  $H(X) \leq\displaystyle log(\sum_{x \in sup(P_x)}P(x)\cdot(1/P(x))$
+
+  Which gives us $H(X) \leq log(|sup(P_x)|)$ which also implies,
+
+  $H(X) \leq log|\mathcal{X}|$
+  Hence, proved.
 
 ---
 
