@@ -111,6 +111,8 @@ Where, $H(X_1, X_2)$ is the joint entropy of $X_1$ and $X_2$. We will be using $
 ## 31 May 2021
 
 ---
+
+
 - Entropy equation manipulation using disjoint event probability.
 - Disjoint events and their properties.
 - Theorem of Total probability.
@@ -123,3 +125,18 @@ Where, $H(X_1, X_2)$ is the joint entropy of $X_1$ and $X_2$. We will be using $
 
 ---
 
+---
+
+## 4 June 2021
+
+---
+
+---
+
+## 7 June 2021
+
+---
+
+No class today =P
+
+---

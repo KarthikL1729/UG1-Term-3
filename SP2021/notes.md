@@ -382,8 +382,17 @@ Did problems on convolution.
 Ex 1: A delay system, no need for properties
 ![Delayez](Screenshot%20from%202021-06-07%2000-29-30.png)
 
+Ex 2: A derivative system
+![deri](Screenshot%20from%202021-06-07%2011-17-58.png)
+
+This system ~~boosts~~ SCALES the weights of the frequencies.
+
 ---
 
 ## 7 June 2021
 
 ---
+
+LTI systems can be interpreted as ***Frequency selective filters***. Mainly because $H(\omega)$ can nullify any frequencies by having that component with zero wieght, hence excluding that frequency from the final output.
+Example q to demonstrate Convolution property:
+![Exq1](Screenshot%20from%202021-06-07%2011-11-19.png).
