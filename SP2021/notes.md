@@ -49,7 +49,7 @@ where $\omega_0 = \frac{2\pi}{T}$.
 Each of the terms in the infinite sum are called the harmonics, and $c_0$ is the constant/DC part of the function.\
 **n = 1 IS CALLED THE FUNDAMENTAL COMPONENT AND NOT THE FIRST HARMONIC**
 
-Called the sysnthesis equation as we can use it to *reconstruct* a signal with frequency $f_0$. If we only use a finite number of terms in the sum, then we get a function $x'(t)$ which will be an approximation of the original function.
+Called the synthesis equation as we can use it to *reconstruct* a signal with frequency $f_0$. If we only use a finite number of terms in the sum, then we get a function $x'(t)$ which will be an approximation of the original function.
 
 **Reconstruction error** -> $e = x'(t) - x(t) \not ={0}$
 When $e = 0$, we say that it is a *perfect reconstruction*.
@@ -243,7 +243,7 @@ Then a discussion about playback speeds on YT, so higher speeds imply the same v
 
 Trying to solve a known transform in reverse...
 
-$\delta(t) \longleftrightarrow 1$. Strating from $X(\omega)$, find $x(t)$.
+$\delta(t) \longleftrightarrow 1$. Star   ting from $X(\omega)$, find $x(t)$.
 Using synthesis formula, we get,
 
 $x(t) = \frac{1}{2\pi}\displaystyle\int_{-\infty}^{\infty} X(\omega)e^{j\omega t}d\omega$
@@ -395,4 +395,10 @@ This system ~~boosts~~ SCALES the weights of the frequencies.
 
 LTI systems can be interpreted as ***Frequency selective filters***. Mainly because $H(\omega)$ can nullify any frequencies by having that component with zero wieght, hence excluding that frequency from the final output.
 Example q to demonstrate Convolution property:
-![Exq1](Screenshot%20from%202021-06-07%2011-11-19.png).
+![Exq1](Screenshot%20from%202021-06-07%2011-11-19.png)
+
+---
+
+## 9 June 2021
+
+---

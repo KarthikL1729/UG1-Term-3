@@ -83,8 +83,8 @@ Other communication systems
 
 - What is information? (Handwavy answers about usefulness)
 - Information of any outcome has to do with the uncertainity of the outcome.
-- Example : Say that X $\isin$ {0, 1} & can take value 0 with probability p, while 1 has a probability of 1 - p. X can be any quatity that represents a choice we care about. X is technically called a random variable.
-If probability of a certain event is occuring is low or the occurence of that event is highly unlikely, then X denoting the occurence of that event is said to have large information content.
+- Example : Say that X $\isin$ {0, 1} & can take value 0 with probability p, while 1 has a probability of 1 - p. X can be any quantity that represents a choice we care about. X is technically called a random variable.
+If probability of a certain event occuring is low or the occurence of that event is highly unlikely, then X denoting the occurence of that event is said to have large information content.
 
 $Information\ content\ in\ a\ particular\ event \ \alpha \ \frac{1}{Probability\ of\ the\ event}$
 
@@ -122,7 +122,7 @@ Now, we can split that summation into a double summation (Like a nested for loop
 ![p1](Screenshot%20from%202021-06-07%2021-30-57.png)
 After this, we can just use total probability theorem on the inner summation, and we have our result.
 
-Now, if $X_1, X_2$ are NOT independent, we define a probabiltiy measure called conditional probability.
+Now, if $X_1, X_2$ are NOT independent, we define a probability measure called conditional probability.
 
 $P(X_2 = x_2|X_1 = x_1) = P(X_2 = x_2, X_1 = x_1)/P(X_1 = x_1)$
 where $P(X_1 = x_1) \neq 0$
@@ -139,7 +139,7 @@ So conditional entropy could be defined as,
 
 $H(X_2|X_1) = \displaystyle\sum_{x_1 \in \mathcal{X_1}} P(X_1 = x_1)\cdot H(X_2|X_1 = x_1)$
 
-while, $H(X_2|X_1 = x_1)$ is deinfed as,
+while, $H(X_2|X_1 = x_1)$ is defined as,
 
 $H(X_2|X_1 = x_1) = \displaystyle\sum_{x_2 \in \mathcal{X_2}} P(X_2 = x_2|X_1 = x_1)\cdot log(1/(X_2 = x_2|X_1 = x_1))$
 
@@ -204,6 +204,118 @@ Claim : $0 \leq H(X) \leq log|\mathcal{X}|$
 
 ---
 
+Jensen's inequality is satisfied with the equality condition when the function is a straight line.
+
+For strictly concave functions like logarithm,
+
+$f(\lambda_1x_1 + \lambda_2x_2) = \lambda_1f(x_1) +\lambda_2f(x_2)$
+
+when $x_1 = x_2$.
+
+In general, if $\lambda_i \not ={0}$ and $\sum_{i = 1}^{n} \lambda_i = 1$ and Jensen's holds with equality, then
+
+$x_1 = x_2....=x_n$
+
+Now, if we apply this condition to $H(X) \leq log|\mathcal{X}|$,
+
+$\displaystyle\sum_{x\in sup(P_X)}\lambda_x log(1/P(x) \leq log|supp(P_X)|$
+
+then for equality, by above claim, we have
+
+$\frac{1}{P(x)} = Constant$
+
+But we also know,
+
+$\displaystyle\sum_{x\in supp(P_X)}{P(x)} = 1$.
+
+So, we can infer that
+
+$P(x) = \frac{1}{|supp(P_X)|} \forall x \in supp(P_X)$
+
+This distribution is called as a uniform distribution.
+
+**Lemma:**
+So, $H(X) = log|\mathcal{X}|$ iff $P_X$ is uniform and $|supp(P_X)| = |\mathcal{X}|$. This is a necessary and sufficient condition.
+
+### Relative Entropy (or) Information Divergence (or) Kullback-Leibler Divergence
+
+Suppose there is a random variable $X$ that has two different probability distributions $p_X$ and $q_X$, then the Relative Entropy/Information Divergence/K-L Divergence can be defined as
+
+$D(p_X||q_X) \triangleq \displaystyle\sum_{x\in supp(p_X)} p(x) log(p(x)/q(x))$
+
+**This expression clearly depends on the order of the arguments.**
+
+Divergence can be **intuitively** thought of as a distance measure between different probability distributions.
+
+Claim: $D(p||q) \geq 0$
+
+Proof:
+
+We first manipulate the expression to use Jensen's inequality.
+
+$D(p||q) = - \displaystyle\sum_{x\in supp(p_X)}p(x) log(q(x)/p(x))$
+
+Now, we can say that
+
+$-\displaystyle\sum_{x\in supp(p_X)}p(x) log(q(x)/p(x)) \geq -log(\displaystyle\sum_{x\in supp(p_X)}q(x))$
+
+using Jensen's inequality. Now, we can say that $\displaystyle\sum_{x\in supp(p_X)}q(x) \leq 1$, and hence, the minimum value the RHS can take is zero. So,
+
+$-\displaystyle\sum_{x\in supp(p_X)}p(x) log(q(x)/p(x)) \geq 0$
+
+Hence, proved.
+
+When we apply equality conditon for Jensen's, we get
+
+$\frac{p(x)}{q(x)} = Constant$
+$\implies p(x) = C\cdot q(x) \ \forall x \in supp(p_X)$
+
+Now, if we take summation on both sides, we get 1 on the LHS and $\displaystyle\sum_{x \in supp(p_X)} C\cdot q(x)$
+
+Now, as $p(x)/q(x) = Constant \ \forall x \in supp(p_X)$, we can say that $|supp(q_X)| \geq |supp(p_X)|$. If $|supp(q_X)| > |supp(p_X)|$, then C will have to be greater than 1, and this is impossible as
+
+$C = \displaystyle(\sum_{x \in supp(p_X)}p(x)/\sum_{x \in supp(p_X)}q(x))$
+$\implies C = 1/\displaystyle\sum_{x \in supp(p_X)}q(x)$.
+
+But the max value that $\displaystyle\sum_{x \in supp(p_X)}q(x)$ can take is 1.
+
+So, this is a contradiction, and hence, $|supp(q_X)| = |supp(p_X)|$
+
+So, from this, we can say that C = 1 and hence, the two probability distributions are equal for divergence equal to 0.
+
+$\therefore D(p||q) = 0$ iff $p_X = q_X$.
+
+\
+Going back to conditional entropy,
+
+Claim: $0 \leq H(X|Y) \leq H(X)$
+
+For $H(X|Y) \geq 0$, we can consider the conditional probability to be another distribution for X, and hence, the proof is the same as it was for $H(X)$.
+
+For the upper bound,
+
+$H(X) - H(X|Y)$
+
+We can write this as,
+
+$\displaystyle\sum_{x\in supp(p_X), y \in supp(p_Y)}p(x, y) log(1/p(x)) - \displaystyle\sum_{x\in supp(p_X), y \in supp(p_Y)}p(x, y) log(1/p(x|y))$
+
+$= \displaystyle\sum_{x\in supp(p_X), y \in supp(p_Y)}p(x, y) log(p(x|y)/p(x))$
+
+On expanding the conditional probability term, we get,
+
+$= \displaystyle\sum_{x\in supp(p_X), y \in supp(p_Y)}p(x, y) log(p(x, y)/(p(x)\cdotp(y)))$
+
+Here, both the terms in division in the log term can be proven to be valid joint probability distributions.
+
+So, we can now say that
+
+$H(X) - H(X|Y) = D(p(x, y)||p_X(x)\cdot p_Y(y)$
+
+which is always greater than or equal to zero.
+
+Hence, we have proved that $H(X|Y) \leq H(X)$.
+
 ---
 
 ## 7 June 2021
@@ -211,5 +323,119 @@ Claim : $0 \leq H(X) \leq log|\mathcal{X}|$
 ---
 
 No class today =P
+
+---
+
+## 9 June 2021
+
+---
+
+Joint entropy in two vairables,
+
+$H(X, Y) = \displaystyle\sum_{x, y \in sup(P_{X,Y})} P(x, y) log(1/P(x, y))$
+
+$P_{X,Y} : \mathcal{X}*\mathcal{Y} \to [0, 1]$, indicating CARTESIAN PRODUCT, including the set of all possible ordered pairs, forming a distribution.
+
+This can be extended to n variables easily,
+
+$H(X_1, ... X_n) = \displaystyle\sum_{x_1,... x_n \in sup(P_{X_1, ... X_n})} P(x_1,...x_n) log(1/P(x_1,...x_n))$
+
+If $X = Y$,
+
+$H(X, Y) = H(X) = H(Y)$, this is cmplete dependence.
+
+If they are independent on the other hand, we get
+
+$H(X, Y) = H(X) + H(Y)$
+
+Chain rule of Joint entropy
+
+$H(X_1, ... X_n) = H(X_1) + \displaystyle\sum_{i = 2}^{n} H(X_i|X_1,...X_i-1)$
+
+where,
+
+$H(X,Y | V,U) = \displaystyle\sum_{u, v \in sup(P_{U, V})}P_{U, V}(u, v) H(X, Y | U= u, V=v)$
+
+where,
+
+$H(X, Y | U= u, V=v) = \displaystyle\sum_{x, y \in sup(P_{X, Y|U=u, V=v})} P(x, y| u, v)log(1/P(x, y| u, v))$
+
+Now, this can be extended to any number of variables, before and after the conditioning.
+
+Note:
+
+$P(x_1, x_2, x_3|y_1, y_2) = P(x_1, x_2, x_3, y_1, y_2)/P(y_1, y_2)$
+
+Some other way of writing it?
+
+IMPORTANT:
+
+$P(x, y|z) = P(x|z)\cdot P(y|x, z)$
+
+Mainly because it forms it's own probability distribution ig?
+This can be used to write the above expression in another way. It can be written as,
+
+$P(x_1, x_2, x_3|y_1, y_2) = P(x_1|y_1, y_2) + P(x_2|x_1, y_1, y_2) + P(x_3|x_2, x_1, y_1, y_2)$
+
+or,
+
+$P(x_1, x_2, x_3|y_1, y_2) = P(x_1, x_2| y_1, y_2) + P(x_3|x_2, x_1, y_1, y_2)$
+
+or this beauty,
+
+![amaze](Screenshot%20from%202021-06-09%2009-53-52.png)
+
+$x_1, x_2, x_3$ can be thought of as a random VECTOR here.
+
+Proof for chain rule:
+
+$P(x_1, ...x_n) = P(x_1) \cdot P(x_2, x_3....x_n|x_1)$
+$= P(x_1) \cdot P(x_2|x_1) \cdot P(x_3....x_n|x_1, x_2)$
+
+and keep splitting, same as chain rule in PRP.
+We finally get,
+
+$P(x_1, ...x_n) = P(x_1) \cdot \Pi_{i = 2}^{n} P(x_i | x_1,...x_{i-1})$
+
+Use definition of joint entropy to finish entire proof.
+
+---
+
+## 11 June 2021
+
+---
+
+Entropy $H(X)$ -> Avg uncertainty about X.
+So,
+
+$H(X|X)$ denotes uncertainty in X AFTER OBSERVING X, which is 0.
+Reduction in avg uncertainty of X achieved by observing X is $H(X) - H(X|X) = H(X)$.
+This is if $P_X$ is known.
+Now, if we have two vairables represented by their joint probability distribution, we can say that if a variable Y is observed before X,
+
+Remaining uncertainty in X is $H(X) - H(X|Y)$, because Y may give certain info about X which reduces its uncertainty.
+
+This can be called "Information gained about X after observing Y" or, more technically "MUTUAL INFORMATION BETWEEN X AND Y" and is denoted by $I(X;Y) = H(X) - H(X|Y)$.
+
+It can be shown that $H(X) - H(X|Y) = H(Y) - H(Y|X)$. This can be proven by taking the conditional terms to opposite sides and making them joint entropies, which are equal.
+
+So, $I(X;Y) = I(Y;X)$.
+We can also say that $I(X;Y) \leq min(H(X), H(Y))$, the proof being trivial.
+
+$\to I(X;Y) \geq 0$ represent this using divergence/relative entropy.
+
+![newst](Screenshot%20from%202021-06-11%2009-45-17.png)
+Stuff that we WILL be doing.
+
+## Overview of Source Coding
+
+Suppose we have $X \in {a, b}$ which is a binary source with probability distribution $P_X$.
+If the observer observes one instance of X, then wants to store/communicate it through a noise free medium, which can carry only ${0, 1}$ bits. We will only need one bit to convey this information with 2 choices.
+
+If receiver knows $P_X(a) = 0, P_X(b) = 1$ then reciever need not even receive the signal and hence, we need 0 bits to convey this info. This information has no chance of error too, but kind of pointless. This is basically an example to show that the probability can decrease the number of required bits I guess?
+
+Now, if we have a margin of error $\epsilon$, then if any one of the events have a probability $\leq \epsilon$, then we can make do with no bits, as we cxan always declare the other event to be true (as it is within the bounds of error).
+
+Basically, tolerating some amount of error, can give huge advantages.
 
 ---
