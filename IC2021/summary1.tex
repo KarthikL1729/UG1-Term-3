@@ -1,0 +1,167 @@
+\documentclass{article}
+\usepackage[utf8]{}
+\usepackage[a4paper, total={6in, 9in}]{geometry}
+\usepackage{graphicx}
+\usepackage{amsmath}
+\usepackage{amssymb}
+\usepackage{sectsty}
+\usepackage{titlesec}
+\usepackage{array}
+\usepackage{wrapfig}
+\usepackage{multirow}
+\usepackage{tabularx}
+\graphicspath{ {images/} }
+\titleformat{\section}[block]{\huge\bfseries\filcenter}{}{1em}{}
+\title{ \Huge Information and Communication}
+\author{Week 1}
+\date{}
+\begin{document}
+\maketitle
+\section{Communication Theory}
+\Large
+\textbf{What is a signal?}\\
+A signal is a function that conveys some useful information about an event.\\
+Examples: Morse code, Electromagnetic waves.\\
+\\
+\textbf{Do signals always have to be function of time?}\\
+NO, we can have non-time oriented/dependent signals.\\
+Examples,
+\begin{enumerate}
+    \item The temperature at various points in a room at a given instant, depends on position and is independent of time.\\
+    Domain : $\mathbb{R}^{3}$\\ 
+    Co-Domain: $^{\circ}C$
+    \item Images\\
+     Domain: $\mathbb{R}^2$\\
+     Co-domain: Parameters regarding color, brightness, contrast. (Considering these quantities as time invariant).
+    \item Text written on a page is space-oriented signal.\\
+    Domain: $\mathbb{R}^2$\\
+    Co-domain: Parameters regarding color, font, font-size.
+
+\end{enumerate}
+\section{Communications Systems}
+\Large
+An electronic communication system consists of three major processes.
+\begin{enumerate}
+    \item Transmission
+    \item Reception
+    \item Reconstruction
+\end{enumerate}
+\newpage
+\LARGE
+\subsection{Types of Communication system}
+\Large
+Point to Point Communication Systems
+\begin{figure}[htp]
+    \centering
+    \includegraphics[width=15cm]{ptp system image.png}
+\end{figure}
+\begin{itemize}
+    \item The transmitter is used to convert a signal to a form that is suitable for transmission.\\
+    Ex: A keyboard can be used to convert our message to electronic form.
+    \item The channel is one part of this system that is not completely under our control and we will have to account for it in our design as it will be imperfect.
+    We may assume the channel as an ideal channel (No disturbance/noise) for analysis.
+    \item Operations that can be performed at the transmitter side to account for this:-
+    \begin{itemize}
+        \item Modulation\\
+        The process of superimposing a high frequency signal on a low frequency signal (information signal) to transmit it over long distances through the channel is called modulation.
+        \item 	Amplification\\
+        The process of increasing the amplitude of the signal is called amplification.
+        \item Channel coding\\
+        The process of altering the signal to account for any changes that might happen to the signal during transmission and to provide a better estimate of the signal in case any errors occur in transmission.
+    \end{itemize}
+    \item The communication channel provides a path/medium for transmitting the information.\\
+    Ex: option cable
+    \item The receiver is used to convert and extract the information from the processed signal that has been sent by the transmitter through the channel.
+    \item Operations that can be performed at receiver side:-
+    \begin{itemize}
+        \item Demodulation\\
+        The process of extracting the information from the modulated signal is called demodulation.
+        \item Decoding\\
+        Decoding the channel coded signal to extract the real signal that was transmitted.\\
+        \textbf{Note: The signal obtained from this is just an\\ ESTIMATE of the transmitted information, as a perfect channel cannot exist in reality.}
+    \end{itemize}
+\end{itemize}
+\newpage
+\subsection{What does an end-user expect from a Communication  system}
+\Large
+\begin{itemize}
+    \item High fidelity\\
+    Fidelity denotes how accurately the receiver reproduces the message signal at the output.
+    \item High communication rate
+    \item High range of Transmission
+    \item Low Latency \\ 
+    Latency is the delay in signal transmission. 
+\end{itemize}
+\subsection{Other Communications Systems}
+\begin{itemize}
+    \item Broadcast System
+    \begin{itemize}
+        \item Single source $\Longrightarrow$ Multiple Receiver.
+        \item Ex. Radio, WiFi.
+    \end{itemize}
+    \item Multiple access Channel
+    \begin{itemize}
+        \item Multiple source $\Longrightarrow$ Single Receiver.
+        \item Ex. Clients of organization accessing a common server.
+    \end{itemize}
+\end{itemize}
+
+\section{Information Theory}
+\Large
+\textbf{What is information?}\\
+Information content in a signal is the measure of the uncertainty of the signal.\\
+\\
+\textbf{How to measure Information?}\\
+Let $X$ be a random variable representing a signal that we want to analyze, such that $X \in \{0,1\}$\\
+
+\begin{center}
+\begin{tabular}{ |  >{\centering\arraybackslash}m{5em} |  >{\centering\arraybackslash}m{3cm} |  >{\centering\arraybackslash}m{3cm} |  >{\centering\arraybackslash}m{3cm}| }
+\hline
+\textbf{Event}&\textbf{Probability}\\\hline
+X = 0 & $p$   \\\hline
+X = 1 & $1-p$ \\\hline
+
+\end{tabular}
+\end{center}
+The information in X is the uncertainty of the output of the signal that X represents.
+\newpage
+Now let us take an example,\\
+Imagine a cricketer who scores runs only in singles (1 run) or doubles (2 runs). Let us say the probability of scoring single is $3/4$ .
+\begin{center}
+\begin{tabular}{ |  >{\centering\arraybackslash}m{10em} |  >{\centering\arraybackslash}m{5cm} | }
+\hline
+\textbf{Event}&\textbf{Probability}\\\hline
+X = 1 (singles) & $3/4$   \\\hline
+X = 2 (doubles) & $1/4$ \\\hline
+\end{tabular}
+\end{center}
+From the table we can say that for every ball, the batsman is more likely to score a single because the probability of running for a single is higher.\\
+Now for the next ball if the batsman runs for a double, it will be more surprising because it was less expected from the batsman. \\
+Here, the event of scoring a single provides less information because it does not tell us anything that was not expected. The event of scoring a double however, provides more information because the probability of that event occurring is low.\\
+Hence, we can conclude that if the probability of the occurrence of an event is very low, then it has high information content. If the probability of the occurrence of an event is very high, then it has low information content. \\
+Therefore,
+\begin{center}
+    $Information \ content \propto$ $\frac{1}{Probability \ of \ occurrence \ of \ the \ event}$
+\end{center}
+\subsection{Defining a function to measure information content (Entropy)}
+So, to find information content of a event represented by a Random variable $X$ we can define a function called entropy which can be defined as follows.\\
+
+The uncertainty (or entropy) of a discrete Random variable $X$ is\\
+\begin{equation}
+ H(X) = \sum_{x \in supp(X)}P_{X}(x)\log_{2}\frac{1}{P_{X}(x)}
+\end{equation}
+If we see carefully we have written $supp(X)$ not $X$ because if $P_{X}(x) = 0 $ it will create problem. So from a practical point of view we ignore these terms because an event with probability = 0 will not contribute to information content anyway. Hence we can ignore those terms.
+\newpage
+\subsection{Lemma/Theorem For Entropy $H(X)$}
+Lemma : Let $X \in \mathcal{X}$ and $Y \in \mathcal{Y}$ be two independent random \\variables\\
+Then,\\ 
+\begin{equation}
+    H(X,Y) = H(X) + H(Y) 
+\end{equation}
+Where,\\
+\begin{equation}
+    H(X,Y) \triangleq \sum_{x \in \mathcal{X} , y \in \mathcal{Y}} P(X = x , Y = y )\log(1/ P(X = x , Y = y ))
+\end{equation}
+where $H(X,Y)$ denotes the joint entropy of the random variables X and Y.
+th
+\end{document}

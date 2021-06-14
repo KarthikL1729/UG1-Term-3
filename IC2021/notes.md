@@ -439,3 +439,42 @@ Now, if we have a margin of error $\epsilon$, then if any one of the events have
 Basically, tolerating some amount of error, can give huge advantages.
 
 ---
+
+## 14 June 2021
+
+---
+
+- Toleration of small errors can lead to us being able to compress the information better.
+
+- Decoder is assumed to know the probability distribution of the source, so the decoder can interpret the data accordingly.
+
+- We can club multiple random variables together, to get a lower probability of error. Individual distributions that we get from joint distributions are called marginal distributions. We can get joint distribution from marginal distribution if the random variables are independent.
+
+We can code this accordingly, one such example being coding them with one bit and concatenating them together, which will give us the same amount of error as one bit at a time.
+
+In the case of encoding one symbol, we only have two posible code lengths, which are 0 and 1. In this case however, we have 0, 1, 2 or 3 length strings.
+
+A 1 length code could be very useful when a single tuple has a very high probability and the total probability of all other distributions is within our error limit.
+
+In summary, this idea detials the logic of combining multiple source symbols and encoding them together into some fixed length binary string (length chosen according to the dirstribution), which gives us a more efficient source code (smaller normalized length, where normalized length is the length of the compressed binary string divided by the length of the  actual string).
+
+Did an example to depict this idea. Only using fixed length binary strings here, though variable length seems to have a lot more potential in compression.
+![id2]
+
+If a group of random variables have the same distribution and are independent, they are said to be independently and identically distributed.
+
+Suppose we have a large length binary string, how many a's and b's do we expect to see in the random source string?
+
+Number of a's $\to n\cdot p(a)$
+Number of b's $\to n\cdot(1-p(a))$
+Total number of such strings $\to$ $n\choose {n\cdot p(a)}$
+
+For all such sequences, we will use unique strings. For EVERYTHING else, we will use ONLY ONE CODEWORD.
+This can increase our efficiency by A LOT, depending on our probability distribution.
+
+---
+
+## 16 June 2021
+
+---
+

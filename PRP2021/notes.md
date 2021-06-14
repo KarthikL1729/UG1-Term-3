@@ -61,10 +61,10 @@ Continuing from the previous class...
   - If $E_1, E_2.... \isin F$(infinite collection of events), then $\cup_{i = 1}^{\infty} E_i \isin F$.
 
   $F = \{\phi, S\}$ is the smallest possible event space.
-  - If $E_1 \isin F$ and $E_2 \isin F$, then $E_1 \cup E_2 \isin F$.
+  - If $E_1 \isin F$ and $E_2 \isin F$, then $E_1 \cap E_2 \isin F$.
   **Proof :**
-  As $E_1 \isin F$, $E_1' \isin F$. Same for $E_2$ WLOG. Now, as $E_1' \isin F$ and $E_2' \isin F$, $E_1' \cup E_2 \isin F$ (By the third axiom).
-  So now, as $E_1' \cup E_2' \isin F$, we can say $(E_1' \cup E_2')' \isin F$ (first axiom), which is the same as saying $E_1 \cup E_2 \isin F$.
+  As $E_1 \isin F$, $E_1' \isin F$. Same for $E_2$ WLOG. Now, as $E_1' \isin F$ and $E_2' \isin F$, $E_1' \cup E_2' \isin F$ (By the third axiom).
+  So now, as $E_1' \cup E_2' \isin F$, we can say $(E_1' \cup E_2')' \isin F$ (first axiom), which is the same as saying $E_1 \cap E_2 \isin F$.
   Hence proved.
 
 - $P$ is known as probability measure. It is a set function defined from $F \to [0, 1]$.
@@ -207,5 +207,53 @@ Did a weird q that used some integration type logic to construct a triangle as a
 ---
 
 ## 7 June 2021
+
+---
+
+### Intro to random variables
+
+Based on experiments, probability spaces vary a lot. They pose a hindrance to constucting a general theory. So we use a new concept called random variables to develop a theory of probability which is independent of the experiment.
+
+A random variable is a function that maps the entities like follows,
+
+$S \to R$ (Real line)
+$F \to Borel-\sigma \ algebra$
+
+**Borel $\sigma$ algebra**: It is the smallest $\sigma$ algebra which contains sets of the form $(-\infty, x] \forall x \in R$.
+
+So we can take all these sets and apply the $\sigma$ algebra axioms to construct it. The smallest possible set of this sort will be the Borel $\sigma$ algebra.
+
+If we take a generic set,
+
+$B = \{R, (-\infty, x], (x, \infty), \phi\}$
+
+Now, we can get $(x, y]$ in the set too,, by intersecting $(x, \infty)$ and $(-\infty, y]$.
+
+After this, to get ${x}$ as an element, we can use
+
+$E_i = (-\infty, x_i]; x_i = x - 1/i$
+$\displaystyle\bigcup_{i \in N} (-\infty, x_i] = (-\infty, x)$ (**VERY IMPORTANT**)
+Now, this union is a part of the algebra too. So then it's complement is part of the algebra as well, because of the axioms. Our algebra right now is
+
+$B = \{R, (-\infty, x], (x, \infty), (x, y], (-\infty, x), [x, \infty), \phi\}$
+
+So now, $[x, \infty) \cap (-\infty, x] = \{x\}$ which is also a part of the algebra now. So we can generate an algebra like this.
+
+![Borel](Screenshot%20from%202021-06-15%2000-17-54.png)
+
+This is the counterpart of our event space.
+
+Random variable $X:S \to R$
+
+X has to be a measurable function. A function X is said to be measurable if inverse image of $(-\infty, x] \forall x \in R$ is in the event space. Pretty weird bs, not sure what that means.
+
+Basically this in summary,
+![wot](Screenshot%20from%202021-06-15%2000-26-45.png)
+
+Did an example, that kind of clarified the issue, not entirely comfortable yet ig =/
+
+---
+
+## 9 June 2021
 
 ---
