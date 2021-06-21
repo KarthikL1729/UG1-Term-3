@@ -148,7 +148,7 @@ To summarise,
 
 ## Fourier Transform, continued
 
-- Both time and frequency are continuous variables here, whereas frquency was discrete in Fourier series.
+- Both time and frequency are continuous variables here, whereas frequency was discrete in Fourier series.
 - Fourier transform is basically derived from a limiting case of Fourier series.
 - Fourier Transform is a weighted linear combination (integration, instead of summation like in Fourier series) of complex sinusoids.
 - In general, all frequencies are present in the transform, i.e., integration goes from $-\infty$ to $\infty$.
@@ -243,7 +243,7 @@ Then a discussion about playback speeds on YT, so higher speeds imply the same v
 
 Trying to solve a known transform in reverse...
 
-$\delta(t) \longleftrightarrow 1$. Star   ting from $X(\omega)$, find $x(t)$.
+$\delta(t) \longleftrightarrow 1$. Starting from $X(\omega)$, find $x(t)$.
 Using synthesis formula, we get,
 
 $x(t) = \frac{1}{2\pi}\displaystyle\int_{-\infty}^{\infty} X(\omega)e^{j\omega t}d\omega$
@@ -268,7 +268,7 @@ As I understand it, any function that has a transform that contains a $\delta$ f
   From these, we can derive,
   - If $x(t)$ is real,
   $x(t) = x^*(t) \implies X(\omega) = X^*(-\omega)$ from first and third points.
-  This is called conjuate symmetry.
+  This is called conjugate symmetry.
 
   - If $x(t)$ is even,
   $x(t) = x(-t) \implies X(\omega) = X(-\omega)$ from first and second points.
@@ -355,7 +355,7 @@ On convolving with impulse response $h(t)$, we get
 
 $y(t) = \displaystyle\sum_{k = -\infty}^{\infty} a_k \cdot H(k\omega_0) e^{j\omega_0 kt}$
 
-Cosine can e represented as the sum of complex sinusoids too, in the same way of course.
+Cosine can be represented as the sum of complex sinusoids too, in the same way of course.
 Working shown below
 ![Workingcos](Screenshot%20from%202021-06-07%2000-12-13.png)
 As seen, the final function is just scaled and phase shifted.
@@ -397,8 +397,261 @@ LTI systems can be interpreted as ***Frequency selective filters***. Mainly beca
 Example q to demonstrate Convolution property:
 ![Exq1](Screenshot%20from%202021-06-07%2011-11-19.png)
 
+An example q that shows how a sinc function acts as a filter.
+
+![exf](2021-06-16_21-39.png)
+Pretty straightforward.
+This is an ideal low pass filter.
+
+A high pass filter is just that graph reversed.
+
+A band pass filter is like a collection of bands that are allowed, and the rest which are blocked.
+
+We cannot design an ideal low pass filter, as a sinc function is infinte, i.e., it's unbounded and extends for infinite time, and hence requires an infinite convolution, which we don't have the resources for. It's also unstable? Idk what that really means, but apparently it's unstable, i.e, a bounded input may give an unbounded output, and so we don't do it.
+We can design filters that can give something close to an ideal filter, and deal with it.
+
 ---
 
 ## 9 June 2021
+
+---
+
+### Analysis of a series RC circuit (using Fourier transform)
+
+The differential eqn for an RC system is
+
+$$V_{in}(t) - RC\frac{dV_{out}}{dt} = V_{out}(t)$$
+
+Taking Fourier Transform of this, 
+
+$$V_{in}(\omega) - RCj\omega V_{out}(\omega) = V_{out}(\omega)$$
+$$\implies V_{out}(\omega) = \frac{1}{1 + j\omega RC}V_{in}(\omega)$$
+
+As seen, this will attenuate the higher frquencies, as it is inversely proportional to $\omega$.
+
+So, 
+
+$$H(\omega) = \frac{\frac{1}{RC}}{\frac{1}{RC}+j\omega}$$
+
+So, usin standard fourier transform formulae, we can get
+
+$h(t) = \frac{1}{RC} e^{-t/RC}u(t)$
+
+The plots for those functions are as given below.
+
+![plot1](Screenshot%20from%202021-06-17%2000-33-27.png)
+
+**Multiplication property:**
+
+
+$$x(t) \leftrightarrow X(\omega) \ and \ y(t) \leftrightarrow Y(\omega)$$
+$\implies x(t)y(t) \longleftrightarrow \frac{1}{2\pi}[X(\omega)*Y(\omega)]$
+
+This is basically the reverse of the convolution property. Also called modulation property. This finds use because while multiplication with impulses is difficult, convolution is very easy.
+
+Example question
+
+![exq](Screenshot%20from%202021-06-17%2001-02-05.png)
+
+This is an example of amplitude modulation. As we can see, the amplitude has decreased. In the above case, cosine is the carrier signal, and the weird thing is the message signal.
+
+For demodulation, we just multiply the receved signal with the same carrier wave.
+
+![dem](Screenshot%20from%202021-06-17%2001-14-35.png)
+We'll need to scale it as required. Low pass filter to get that middle copy.
+
+---
+
+## 11 June 2021
+
+---
+
+### Sampling Theorem
+
+It's a link between continuous time signals and discrete tmie signals.
+Matlab plots graphs by discretising the input, as continuous time computation is not possible, hence the time_grid thing.
+
+We can take infinite samples of a signal, but then this is practically not useful, so we need a limit. We need to take a certain amount of samples so that we have enough to reconstruct the signal when necessary. 
+We do this because we can use it for:
+
+- Compression
+- Storage or transmission
+- Computations
+
+Fourier series is a discrete representation of periodic signals.
+
+For a general aperiodic signal though, we sample it's value at cerain instants of time and "join the dots". For this, we need to have enough samples, or we cannot have a definitive reconstruction of the signal.
+
+We can reconstruct a band limited signal perfectly.
+
+**Band limited singal:** A signal $x(t)$ is band limited if there is a frequency $\omega_m$ such that the FT $X(\omega)$ is zero for $|\omega| > \omega_m$. Ex: speech signals only extend upto a certain frequency.
+
+**Sampling theorem**
+
+A Band limited signal with some maximum frequency $\omega_m$ can be perfectly recovered/reconstructed from its samples if the sampling frequency $\omega_s$ satisfies
+$$\omega_s > 2\omega_m$$
+
+We also call $2\omega_m$ as the NYQUIST RATE of the signal.
+
+Sampling interval is defined as
+
+$T_s = \frac{2\pi}{\omega_s}$
+
+Intuitively speaking, this is because when a signal has higer frequency, it varies quickly, which means we need more samples in any region when compared to a signal with a lesser frequency.
+
+If the signal is not band limited, there is no limit on how high its frequency can go, hence, we can never PERFECTLY reconstruct it, but we can get a good approximation in a few cases (Idk if it's a few or many, but you can).
+
+Proof: We use an impulse train to do the sampling.
+
+$p(t) = \displaystyle\sum_{k = -\infty}^{\infty}\delta(t - kT_s)$
+
+Now, we sample $x(t)$.
+
+$$x(t) \longleftrightarrow x[k] = x(kT_s)$$
+
+We use impulse train only for analytical proofs.
+
+To sample, we multiply,
+
+$x_p(t) = x(t)\cdot p(t)$
+
+which gives us
+
+$x_p(t) = \displaystyle\sum_{-\infty}^{\infty} x(kT_s)\delta(t - kT_s)$
+
+---
+
+## 14 June 2021
+
+---
+
+Time limited signals may or may not be recoverable from sampling, they may not be band limited.
+
+Periodic signals may not be recoverable from their samples, as periodic signals can potentially have infinite harmonics, which we cannot sample.
+
+Continuing from last class...
+
+If we use multiplication property on $x_p(t)$ after converting it to frequency domain, we get
+
+$$X_p(\omega) = \frac{1}{2\pi}X(\omega)*P(\omega)$$
+
+which gives us
+
+$$X_p(\omega) = \frac{1}{2\pi}X(\omega)*\frac{2\pi}{T_s}\displaystyle\sum_{-\infty}^{\infty}\delta(\omega - k\frac{2\pi}{T_s})$$
+
+which simplifies to,
+
+$$X_p(\omega) = \frac{1}{T_s}\displaystyle\sum_{-\infty}^{\infty}X(\omega - k\frac{2\pi}{T_s})$$
+
+which is an infinite chain of **SCALED COPIES** of $X(\omega)$.
+
+Diagrammatically,
+
+![diag](Screenshot%20from%202021-06-17%2020-24-26.png)
+
+As we can see from the figure, a lot of info seems to be lost in the time domain, but an exact scaled copy of the original signal is still there in the frequency domain, we can now use a suitable low pass filter to obtain our signal and then we can scale it as required.
+
+The system that does the convolution is not LTI. A simple way of confirming that it is not LTI is as it creates multiple copies of the same signal at different frequencies, but we know that an LTI system cannot add new frequencies to a given signal.
+
+The Nyquist rate is basically defined to prevent any overlaps between those copies. Overalapping causes aliasing.
+As seen from the picture, we get the inequality,
+
+$$\frac{2\pi}{T_s} - \omega_m > \omega_m$$
+
+to prevent overlaps. This directly gives us the Nyquist rate condition. Hence proved.
+
+Now this reconstruction is in frequency domain. We want reconstruction in time domain too.
+
+Low pass filtering in frequency domain is basically multiplication. So this is equivalent to convolution in time domain.
+
+So,
+
+$$x_r(t) = x_p(t) * h_{LPF}(t)$$
+
+**Ideal Reconstruction**
+
+If we take an ideal LPF, we get $h_{LPF}(t)$ as the sinc function.
+
+$h_{LPF}(t) = T_s\frac{sin(\omega_c t)}{\pi t}$
+
+Now, convolving,
+
+![con](Screenshot%20from%202021-06-17%2023-39-05.png)
+
+$\omega_c$ here is the cutoff frequency of the filter.
+This ideal reconstruction is basically a combination of weighted and shifted sinc shapes. An ideal reconstruction uses infinite sinc shapes.
+
+THIS IS CALLED SINC INTERPOLATION.
+
+**Non ideal reconstructions**
+
+- Zero order hold reconstruction
+  This basically takes the sample and holds its value till the next sample, and so on, so the graph looks a little like steps if the samples are spaced out.
+
+- Linear interpolation (Connect   the dots with lines)
+  Just connect the obtained samples with straight lines.
+
+---
+
+## 16 June 2021
+
+---
+
+For real signals, we can ignore the negative frequency spectrum and modify the graph to make it smaller and stuff.
+
+- Zero Order Hold reconstruction (Piecewise constant approximation)
+  h(t) is just a rectangular pulse from 0 to Ts. On convolving, it will hold the value till Ts, and then take the next sample's value and so on.
+  This is basically using a non ideal low pass filter instead of an ideal low pass filter.
+
+  ![CLICK](Screenshot%20from%202021-06-19%2021-56-15.png)
+
+- Linear interpolation (First order hold)
+  Take a triangular pulse instead of a rectangular pulse here, from -Ts to Ts. The fourier transform of a triangular pulse is a squared sinc function, as it is formed by the convolution of two rectangular pulses. This is a better non ideal filter.
+
+### Aliasing (Spectral folding)
+
+When the copies overlap, i.e. when we take a sampling frequency lower than the Nyquist rate. We ideally don't want aliasing to happen.
+High frequencies will appear at lower frequencies, basically they occur a little sooner than they are supposed to.
+If the signal is not band limited, no matter how high our sampling rate is, we will not be able to reconstruct it perfectly because of aliasing.
+
+Solution is to use an anti aliasing filter.
+This just means pass the input signal into a low pass filter before sampling, where the filter has a cutoff frequency of $\omega_s/2$. This is basically forcing the signal to be band limited. This of course, will not be the same signal, but it will not undergo aliasing. This is what happens in those videos of cars and stuff, where the wheels seem to slow down after a while even though the car speeds up, because we aren't sampling quick enough. At exactly double the frequency, i.e. when the car has an rpm exactly double of our sampling rate, the wheels will appear stationary. This is an example of aliasing.
+
+---
+
+## 18 June 2021
+
+---
+
+Recap
+
+![img](Screenshot%20from%202021-06-21%2008-17-40.png)
+
+Analog to digital conversion is actually more than one step. One of them is sampling, the sampled values are then **quantised**. Quantisation is basically the discretization of the sample values, along with encoding, i.e. mapping them to bit sequences. ADC takes samples and converts them to binary values and outputs them. More bits implies better resolution. There is an error as we are mapping a certain continuous range to a single bit sequence. DAC takes the proccessed input and using the quantised values, it gives us analog signals.
+
+Bitrate can be defined as,
+
+$$b_s = B\cdot f_s$$
+
+Where $B$ is the number of bits used in the quantisaton of samples, and $f_s$ is the sampling rate in Hz. We won't worry about quantisation here after this point, use it as a black box ig.
+
+### Discrete time signals
+
+In x[n], n is necessarily an integer.
+
+Examples:
+
+- Unit impulse: $\delta[n]$, defined as 1 at n = 0, and 0 for all other points.
+
+- Unit step: $u[n]$ is 1 $\forall n \geq 0$ and 0 everywhere else.
+
+- Sinusoids: $x[n] = sin(\omega_0 n)$
+  Similar for cosine.
+
+- Exponentials: $x[n] = a^{n}, a \in R$
+
+---
+
+## 21 June 2021
 
 ---

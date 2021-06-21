@@ -257,3 +257,132 @@ Did an example, that kind of clarified the issue, not entirely comfortable yet i
 ## 9 June 2021
 
 ---
+
+A random variable is a map from the sample space to the real line such that X is a measurable function which satisfies the mentioned conditions.
+
+### Cumulative distribution function
+
+$F_X(x) = P(X \leq x) = P((-\infty, x])$
+
+Or more precisely,
+
+$F_X(x) = P(X^{-1}(-\infty, x])$
+
+Since, the interval needs to be mapped back to the event space from the algebra and only then can we calculate probability. The previously menioned two are just notational.
+
+**Properties of CDF**
+
+- $F_X()$ is a non decreasing function of x.
+  Proof:
+  $F_X(x_2) = P(X \leq x_2) = P(X \leq x_1) + P(x_1 < X \leq x_2)$
+  This can be done as they are disjoint, assuming $x_1 \leq x_2$
+  So, $F_X(x_2) \geq F_X(x_1)$
+
+- $\displaystyle\lim_{x \to -\infty} F_X(x) = 0$
+  Can be proving by taking nested decreasing sets that go towards $-\infty$, and then using continuity of probability. Decreasing events can be of the form
+  $A_i = (-\infty, -i]$
+  $B_i = X^{-1}(A_i)$
+  $\displaystyle\bigcap_{i\in N} B_i = \phi$
+  $P(\displaystyle\bigcap_{i\in N} B_i) = \lim_{i \to \infty} P(B_i) = 0$
+
+  As it is nested decreasing, the probability will also be monotonically decreasing, so probability will converge to 0.
+
+- $\displaystyle\lim_{x \to \infty} F_X(x) = 1$
+  Proved in a similar manner as the previous one, except it's union here.
+
+**Indicator random variable**
+
+$\mathcal{I}_A(\omega) = 1 \ \forall \ (\omega \in A), 0 \ otherwise$ for $A \in F$.
+
+![rand](Screenshot%20from%202021-06-15%2022-14-01.png)
+Hard to explain, see image.
+
+---
+
+## 11 June 2021
+
+---
+
+Continuing with properties of CDF...
+
+- $F_X()$ is a **right continuous** function.
+  $\displaystyle\lim_{x \to x_{0}^{+}} F_X(x) = F_X(x_0)$
+  Proof: If we take a decreasing sequence of events,
+  $B_i = \{X \leq x + 1/i\}$
+  The infinite intersection of these events gives us
+  $\displaystyle\bigcap_{i = 1}^{\infty}B_i = \{X \leq x\}$
+  So, now $P(\displaystyle\bigcap_{i = 1}^{\infty}B_i) = P(\{X \leq x\}) = F_X(x)$
+  RHS can now be simplified using continuity of probability.
+
+Example qs
+
+![exqs](Screenshot%20from%202021-06-20%2020-29-02.png)
+
+---
+
+## 14 June 2021
+
+---
+
+Lemma : For any $x \in R$
+
+$P(X = x) = P(X \leq x) - P(X < x)$
+
+Corollary : $F_X()$ is left continuous iff $P(X = x) = 0 \forall x \in R$
+
+This implies $F_X()$ is continuous iff $P(X = x) = 0 \forall x \in R$
+
+### Types of random variables
+
+- Continuous Random Variable
+- Discrete Random Variable
+- Mixed Random Variable
+  
+**Continuous Random vairables**
+
+  A random variable X with cdf $F_X()$ is said to be continuous if $F_X()$ is continuous. In the context of continuous RVs, probabilities of intervals give useful info, as probabilities of points are always 0. Kind of like measure theory stuff.
+
+  If $F_X()$ is a differentiable function, then we can find another function for the continuous RV, which is defined as,
+  $$f_X(x) = \frac{dF_X(x)}{dx}$$
+
+  which is called the **probability density function**. We can integrate this function from $-\infty$ to whatever value we want to get the cdf.
+
+  So we can say that
+  $P(a \leq x \leq b) = \displaystyle\int_{a}^{b}f_X(x)\cdot dx$
+
+  And from this, if we find $P(x \leq X \leq x + \Delta x)$ and make $\Delta x \to 0$, we can approximate it to a rectangle with area $f_X(x) \cdot \Delta x$.
+
+Properties of a pdf
+
+- $f_X(x) \geq 0$ (Because cdf is monotonically non decreasing)
+- $\displaystyle\int_{-\infty}^{\infty}f_X(x)\cdot dx = 1$
+
+*pdf by itself does not indicate any probability.*
+
+**Discrete Random Variables**
+
+X is said to be a discrete random variable if the range of X is either finite or countably infinite in R.
+
+The cdf of a discrete random variable will look like a staircase, constant everywhere, with jumps at certain points.
+
+Here, $P(X = x_i) > 0$, not necessarily, but possible.
+CDF for this would be
+
+$$F_X(a) = \displaystyle\sum_{x_i \leq a} P(X = x_i)$$
+
+Now, $P(X = x_i) = P_X(x_i)$ for $x_i$ in the range of X.
+
+$P_X()$ is called the **probability mass function**.
+
+![pmf](Screenshot%20from%202021-06-21%2000-28-08.png)
+
+Properties of pmf:
+
+- $P_X(x_i) \geq 0$
+- $\displaystyle\sum_{x_i \in range} P_X(x_i) = 1$
+  
+---
+
+## 17 June 2021
+
+---

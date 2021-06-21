@@ -330,7 +330,7 @@ No class today =P
 
 ---
 
-Joint entropy in two vairables,
+Joint entropy in two variables,
 
 $H(X, Y) = \displaystyle\sum_{x, y \in sup(P_{X,Y})} P(x, y) log(1/P(x, y))$
 
@@ -448,7 +448,9 @@ Basically, tolerating some amount of error, can give huge advantages.
 
 - Decoder is assumed to know the probability distribution of the source, so the decoder can interpret the data accordingly.
 
-- We can club multiple random variables together, to get a lower probability of error. Individual distributions that we get from joint distributions are called marginal distributions. We can get joint distribution from marginal distribution if the random variables are independent.
+- We can club multiple random variables together, to get a lower probability of error. Individual distributions that we get from joint distributions are called marginal distributions. We can get joint distribution from marginal distribution if the random variables are independent. The picture below shows this idea.
+
+![id2](Screenshot%20from%202021-06-18%2007-53-42.png)
 
 We can code this accordingly, one such example being coding them with one bit and concatenating them together, which will give us the same amount of error as one bit at a time.
 
@@ -459,9 +461,9 @@ A 1 length code could be very useful when a single tuple has a very high probabi
 In summary, this idea detials the logic of combining multiple source symbols and encoding them together into some fixed length binary string (length chosen according to the dirstribution), which gives us a more efficient source code (smaller normalized length, where normalized length is the length of the compressed binary string divided by the length of the  actual string).
 
 Did an example to depict this idea. Only using fixed length binary strings here, though variable length seems to have a lot more potential in compression.
-![id2]
+![id2](Screenshot%20from%202021-06-18%2008-26-12.png)
 
-If a group of random variables have the same distribution and are independent, they are said to be independently and identically distributed.
+If a group of random variables have the same distribution and are independent, they are said to be independently and identically distributed. Like in the above case, the source string can be thought of as a string of random variables that have the same distribution and are independent.
 
 Suppose we have a large length binary string, how many a's and b's do we expect to see in the random source string?
 
@@ -478,3 +480,129 @@ This can increase our efficiency by A LOT, depending on our probability distribu
 
 ---
 
+In last class we said,
+
+Total number of such strings $\to$ $n\choose {n\cdot p(a)}$
+
+A better term for this would be "Typical sequences".
+
+Atypical sequences are sequences where the distribution is very different from the expected distribution. We can conclude with high probability that any n-length sequence from the source is going to be a typical sequence.
+
+As $n \to \infty$, the probability of atypical sequences tends to zero.
+
+**Block to block source coding**
+
+Assign a unique codeword of length 'l'to each typical sequence.
+
+Assign some "Same" codeword of length l, different from all other codewords that represents all atypical sequences.
+
+We can now deduce that we will need
+
+$l = \log_{2} {n\choose n\cdotp(a)} + 1$
+
+to represent all these words. On simplifying the expression in the log (using massive amounts of approximation like in time complexity analysis) we get
+
+$l = n\log_{2}n - np\log_{2}(np) - n(1-p)\log_{2}(n(1-p)) - C$
+
+where C is comparitively a very small quantity. On simplifying that expression, we get,
+
+$l = n[p\log(1/p) + (1-p)\log(1/(1-p)) - smallnum/n]$
+
+This is clearly the entropy of the random variable X (source string).
+
+So, we get,
+
+$l = n\cdot H(X)$
+
+---
+
+## 18 June 2021
+
+---
+
+### Fixed to variable length source coding
+
+If we have 4 symbols, {A, B, C, D}, and a code,
+
+$A \to 0$
+$B \to 1$
+$C \to 10$
+$D \to 11$
+
+Here, the source sequences 'BA' and 'C' are not uniquely deecodable. This has a non zero probability of error which we are not okay with.
+
+One solution is to use a PREFIX-FREE CODE.
+
+Clarification in Terminology:
+
+- Codeword: The string resulting from a particular input.
+- Code: Set of all codewords.
+
+Both refer to the mapping. Not the source signal or input.
+
+Continuing...
+
+A code C is called a Prefix free code if no Codeword in C is a prefix of another codeword, i.e., 
+the example shown above shouldn't happen. In the example above, 1 is a prefix of the code words 11 and 10. So, it is not a prefix free code.
+
+Example of a Prefix free code $\to$ {10, 01, 11, 00}
+
+Note: A variable length code does not mean that the length of the codewords are different. It just means that when we design the code, we are free to choose the length of the codewords, whereas in a fixed length code, all codewords must be of the same length.
+
+Example of a variable length prefix free code $\to$ {0, 10, 110, 1110}
+
+If we think of the code as a binary tree
+
+![bt](Screenshot%20from%202021-06-18%2009-33-38.png)
+
+If we represent the code like this, we can see that successor node of any code word will not be part of a prefix free code, as the predecessor node is a prefix code word. This is a necessary and sufficient condition. So, our code will be a set of nodes which are neither successors nor predecessors of each other.
+
+More terminology:
+
+- Leaves of the binary tree are nodes in the tree with no children.
+
+If we have $X \in \mathcal{X}$, where X is the source string random variable, and we have $|supp(P_X)| = s$, then we can have $l_i$, where each represents the length of the binary code words associated to the ith symbol in $|supp(P_X)|$.
+
+So, we can now say that the expected length of the codeword will be,
+
+$$Expected\ length (\overline{L}) = \displaystyle\sum_{i = 0}^{|supp(P_X)|} P_i\cdot l_i$$
+
+Now, we want to find a code that minimises this expected length.
+
+Did an example to show this formula in use.
+
+The goal of Prefix free variable length source coding is to reduce expected length.
+
+This is error free as EACH SEQUENCE of source symbols will have a UNIQUE codeword sequence. The decoder will start from the leftmost end of the codeword sequence, traverse the tree, and when it finds a sequence corressponding to a codeword, it declares the codewords' corressponding source symbol and restarts from the beginning. This will always work, as the code is prefix free.
+
+The minimum possible $\overline{L}$ among all codes is denoted as $\overline{L}^{*}$.
+
+---
+
+## 21 June 2021
+
+---
+
+Some mad discussion about achievability and converse.
+
+### Channel coding
+
+We give input, which is then translated and passed through a channel to give an output in a different language.
+
+We say that a channel is noisy when we have a many one relation from input to output. The different one one relationshipps won't matter because we'll still have unique relations between input and output, which can be decoded by some decoder. Will be discussed later apparently.
+
+If we have a many one relation, then we only choose one of the many words that map to one codeword, and we omit the rest from our vocabulary, which is called the set of all transmittable sequences... Seems like a pretty scammy workaround?
+
+This subset of transmittable sequences is called channel code, or just code. Denoted by $\mathcal{C}$. Note that $\mathcal{C} \subseteq \mathcal{X}^{n}$ where $\mathcal{X}^{n}$ is the input vocabulary. Each vector in the input vocabulary requires the channel to be used n times, because n characters. Each vector in $\mathcal{C}$ is a codeword.
+
+Number of bits that is required to represent $|\mathcal{C}|$ codewords is $log_{2}\mathcal{|\mathcal{C}|}$
+
+Now, the rate of the code is defined as,
+
+$$Rate \ of \ \mathcal{C} = \frac{log_{2}|\mathcal{C}|}{n}$$
+
+Higher the rate, more the chance of error, as there is more chance of a many one system forming.
+
+**Probabilistically noisy channel (or) Random channel**
+
+Same input can give many different outputs with different probabilities. We use conditional probability here.
