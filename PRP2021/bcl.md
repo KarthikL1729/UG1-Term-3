@@ -14,7 +14,7 @@ If $A_1, A_2,.....$ is a sequence of **INDEPENDENT** events such that
 
 $\displaystyle\sum_{n = 1}^{\infty} P(A_n) = \infty$
 
-i.e., sum of probabilities of those events is finite, then we can say that almost surely infinitely many of the events will occur.
+i.e., sum of probabilities of those events is infinite, then we can say that almost surely infinitely many of the events will occur.
 
 The first part can be understood by thinking of it as an infinite sum that sums up to a finite value, which directly implies that the terms will decrease and tend to 0 after a certain n, because the sum has to be finite.
 

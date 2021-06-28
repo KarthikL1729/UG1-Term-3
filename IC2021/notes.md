@@ -411,7 +411,7 @@ So,
 $H(X|X)$ denotes uncertainty in X AFTER OBSERVING X, which is 0.
 Reduction in avg uncertainty of X achieved by observing X is $H(X) - H(X|X) = H(X)$.
 This is if $P_X$ is known.
-Now, if we have two vairables represented by their joint probability distribution, we can say that if a variable Y is observed before X,
+Now, if we have two variables represented by their joint probability distribution, we can say that if a variable Y is observed before X,
 
 Remaining uncertainty in X is $H(X) - H(X|Y)$, because Y may give certain info about X which reduces its uncertainty.
 
@@ -601,8 +601,78 @@ Now, the rate of the code is defined as,
 
 $$Rate \ of \ \mathcal{C} = \frac{log_{2}|\mathcal{C}|}{n}$$
 
+Unit -> bits per channel use
 Higher the rate, more the chance of error, as there is more chance of a many one system forming.
 
 **Probabilistically noisy channel (or) Random channel**
 
 Same input can give many different outputs with different probabilities. We use conditional probability here.
+
+---
+
+## 23 June 2021
+
+---
+
+![exr](Screenshot%20from%202021-06-25%2008-02-05.png)
+
+Intuitively there is no way to reduce error in this case unless we change n. So if we increase n, then we get a code with a smaller rate, and hence intuitively lesser error.
+
+So for negligible probability of error, intuition would lead us to a code with nearly zero rate. 
+
+Surprisingly, this is not the case in the ideal sense. Assuming we have freedom to choose n, we actually end up saying for ANY small $\epsilon > 0$, there exists a code $\mathcal{C}$ with $P(error) < \epsilon$, and the rate of that code is,
+
+ $$R(\mathcal{C}) = max_{P_X}(I(X;Y)) - f(\epsilon)$$
+
+$f(\epsilon)$ here is negligibly small.
+
+ Now,
+
+- $I(X;Y)$ depemds on the conditional distribution we have for Y and X depending on the channel. Cannot be directly controlled by us.
+
+- Also depends on distribution of $P_X$. $P_Y$ can be derived from these two itself. As X is not a "natural source", we can manipulate it, and hence we consider it to be controllable, and use it to maximise our requirements. So, we have
+
+$R(\mathcal{C}) = max_{P_X}I(X;Y)$
+
+This is also called as the **"Channel capacity"** denoted by C.
+
+**Channel Coding theorem (Converse of the achievability discussed above)**
+
+No matter what we do, we CANNOT get a code with $rate > C$ and expect small probability of error.
+
+To make the rate very close to C, we will have to take a very high value for the code length n.
+
+Ex: Binary Symnmetric Channel (or) bit flip channel
+Binary input and output.
+$\mathcal{X} = \{0, 1\} = \mathcal{Y}$
+
+So, we can say
+
+$P_{Y|X}(y|x = 0) = (p, for y = 1)and (1-p, for y = 0)$
+
+$P_{Y|X}(y|x = 1) = (p, for y = 1)and (1-p, for y = 0)$
+
+This is a symmetric distribution, hence the name "symmetric channel".
+So, we can say that a bit flip for an input occurs with a probability p.
+
+This implies $H(Y|X = 0) = H(Y|X = 1) = H_2(P)$, where $H_2(P)$ is that value.
+
+Pictorial representation:
+
+![picr](Screenshot%20from%202021-06-25%2008-37-27.png)
+
+We want to calculate capacity of this channel now. So,
+
+$I(X;Y) = H(Y) - H(Y|X)$
+
+---
+
+## 25 June 2021
+
+---
+
+---
+
+## 28 June 2021
+
+---

@@ -422,14 +422,14 @@ The differential eqn for an RC system is
 
 $$V_{in}(t) - RC\frac{dV_{out}}{dt} = V_{out}(t)$$
 
-Taking Fourier Transform of this, 
+Taking Fourier Transform of this,
 
 $$V_{in}(\omega) - RCj\omega V_{out}(\omega) = V_{out}(\omega)$$
 $$\implies V_{out}(\omega) = \frac{1}{1 + j\omega RC}V_{in}(\omega)$$
 
 As seen, this will attenuate the higher frquencies, as it is inversely proportional to $\omega$.
 
-So, 
+So,
 
 $$H(\omega) = \frac{\frac{1}{RC}}{\frac{1}{RC}+j\omega}$$
 
@@ -468,10 +468,10 @@ We'll need to scale it as required. Low pass filter to get that middle copy.
 
 ### Sampling Theorem
 
-It's a link between continuous time signals and discrete tmie signals.
+It's a link between continuous time signals and discrete time signals.
 Matlab plots graphs by discretising the input, as continuous time computation is not possible, hence the time_grid thing.
 
-We can take infinite samples of a signal, but then this is practically not useful, so we need a limit. We need to take a certain amount of samples so that we have enough to reconstruct the signal when necessary. 
+We can take infinite samples of a signal, but then this is practically not useful, so we need a limit. We need to take a certain amount of samples so that we have enough to reconstruct the signal when necessary.
 We do this because we can use it for:
 
 - Compression
@@ -480,7 +480,7 @@ We do this because we can use it for:
 
 Fourier series is a discrete representation of periodic signals.
 
-For a general aperiodic signal though, we sample it's value at cerain instants of time and "join the dots". For this, we need to have enough samples, or we cannot have a definitive reconstruction of the signal.
+For a general aperiodic signal though, we sample its value at cerain instants of time and "join the dots". For this, we need to have enough samples, or we cannot have a definitive reconstruction of the signal.
 
 We can reconstruct a band limited signal perfectly.
 
@@ -653,5 +653,51 @@ Examples:
 ---
 
 ## 21 June 2021
+
+---
+
+Complex exponentials and sinusoids revision
+
+Energy $\to\displaystyle\sum_{-\infty}^{\infty} |x[n]|^2$
+If energy of a signal is finite, the signal is called an energy signal.
+
+Power $\to\displaystyle\lim_{N \to \infty}\frac{1}{2N+1}\sum_{-N}^{N} |x[n]|^2$
+If power of a signal is finite,the signal is called a power signal.
+
+Even signals: $x[-n] = x[n]\ \forall n$
+Odd sgnals: $x[-n] = -x[n]\ \forall n$
+This implies $x[0] = 0$ for an odd signal.
+
+Periodic signals: A signal is periodic if
+
+$$x[n + N] = x[n] \ \forall \ n \ and \ N > 0$$
+Smallest period of the signal $\to N$, called fundamental period.
+
+Ex: $sin(5\pi n)$
+$\to sin(5\pi (n + N)) = sin(5\pi n)$
+$\implies 5\pi N = \pi k, k \in Z$
+$\implies N = \frac{k}{5}$
+$\implies N = 1$ is the smallest period.
+
+Frequency = $\frac{1}{N}$
+
+Ex2: $cos(5\pi n)$
+$\to cos(5\pi (n + N)) = cos(5\pi n)$
+$\implies 5\pi N = 2\pi k, k \in Z$
+$\implies N = \frac{2k}{5}$
+$\implies N = 2$ is the smallest period.
+
+In general, for signals like $sin(\omega_0 n), cos(\omega_0 n), e^{j\omega_0 n}$ we can say that
+
+$sin(\omega_0 n)$
+$\to sin(\omega_0 (n + N)) = sin(\omega_0 n)$
+$\implies \omega_0 N = 2\pi k, k \in Z$
+$\implies \omega_0 = \frac{2\pi k}{N}$ for periodicity.
+
+For example, if we take $cos(5n)$, as 5 does not satisfy that condition for any integers k and N, we can say that it is not periodic in discrete time.
+
+---
+
+## 23 June 2021
 
 ---

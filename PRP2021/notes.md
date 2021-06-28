@@ -60,6 +60,7 @@ Continuing from the previous class...
   - If $E \isin F$, then $E'\isin F$ as well.
   - If $E_1, E_2.... \isin F$(infinite collection of events), then $\cup_{i = 1}^{\infty} E_i \isin F$.
 
+  We cannot afford to take F as the power set of the sample space when the sample space is uncountably infinite.
   $F = \{\phi, S\}$ is the smallest possible event space.
   - If $E_1 \isin F$ and $E_2 \isin F$, then $E_1 \cap E_2 \isin F$.
   **Proof :**
@@ -109,13 +110,13 @@ $\to P(E|A) = P(E \cap A)/P(A)$
 This new definition must satisfy the three probabilty axioms too, which it does.
 
 **Total Probability Theorem:**
-Let events $A_1, A_2....A_n$ be mutually exclusive and exhaustive, i.e, 
+Let events $A_1, A_2....A_n$ be mutually exclusive and exhaustive, i.e,
 
 $A_i \cap A_j = \phi$ and
 
 $\bigcup_{i = 1}^n A_i = S$
 
-So, if we have an event $B$, we can say that 
+So, if we have an event $B$, we can say that
 
 $P(B) = \displaystyle\sum_{i = 1}^n P(B \cap A_i) = \displaystyle\sum_{i = 1}^n P(B|A_i) \cdot P(A_i)$
 
@@ -130,7 +131,7 @@ This is true as $A_i$s are exhaustive, hence their union forms the sample space,
 ### Bayes' theorem and independent events
 
 **Bayes' Theorem**
-Let events $A_1, A_2....A_n$ be mutually exclusive and exhaustive, i.e, 
+Let events $A_1, A_2....A_n$ be mutually exclusive and exhaustive, i.e,
 
 $A_i \cap A_j = \phi$ and
 
@@ -219,7 +220,7 @@ A random variable is a function that maps the entities like follows,
 $S \to R$ (Real line)
 $F \to Borel-\sigma \ algebra$
 
-**Borel $\sigma$ algebra**: It is the smallest $\sigma$ algebra which contains sets of the form $(-\infty, x] \forall x \in R$.
+**Borel $\sigma$ algebra**: It is the smallest $\sigma$ algebra which contains sets of the form $(-\infty, x] \forall x \in R$. Basically a smaller sigma algebra
 
 So we can take all these sets and apply the $\sigma$ algebra axioms to construct it. The smallest possible set of this sort will be the Borel $\sigma$ algebra.
 
@@ -338,7 +339,7 @@ This implies $F_X()$ is continuous iff $P(X = x) = 0 \forall x \in R$
 - Discrete Random Variable
 - Mixed Random Variable
   
-**Continuous Random vairables**
+**Continuous Random variables**
 
   A random variable X with cdf $F_X()$ is said to be continuous if $F_X()$ is continuous. In the context of continuous RVs, probabilities of intervals give useful info, as probabilities of points are always 0. Kind of like measure theory stuff.
 
@@ -386,3 +387,92 @@ Properties of pmf:
 ## 17 June 2021
 
 ---
+
+### Mixed RVS
+
+As the name implies, it is continuous in some intervals, but also has jumps at some points. Y here is an example.
+
+$\to Y = \alpha X_1 + \beta X_2$
+
+### Functions of RVs
+
+$Y = g(X)$
+
+Here, X is an RV. So,  
+
+$X:S \to R$
+$g:R \to R$
+
+Y is an RV when g satisfies some conditions, i.e., when g is a measuable function. Y is an RV basically when
+
+$Y^{-1}((-\infty, y]) \in F$
+
+Basically, the preimage of the generating class of the borel sigma algebra has to be in the event space, basic criteria for RV.
+This also implies,
+
+$X^{-1} [g^{-1} ((-\infty, y])] \in F$
+
+Now, $X^{-1}$ of any Borel set will satisfy that condition.
+
+So, we can say that $g^{-1} ((-\infty, y]) \in \mathcal{B}$, where $\mathcal{B}$ is the Borel sigma algebra.
+
+This is the condition for Y to be an RV.
+
+If X is a discrete random variable, and g is a function, then Y formed by these two is also a discrete RV.
+
+The pmfs of Y and X, and the function g are related by
+
+$P_Y(y) = P(Y = y)$
+$= P(\{x_i|g(x_i) = y\})$
+$=\displaystyle\sum_{x_i|g(x_i) = y}P_X(x_i)$
+
+![exqd](Screenshot%20from%202021-06-27%2022-52-43.png)
+
+If X is a continuous random vairable and g is a function, Y's nature depends on g, i.e., it can be either discrete or continuous.
+
+Example:
+When X is continuous and Y is also continuous
+
+$Y = aX + b$
+
+Let $F_X()$ be cdf and $f_X()$ be pdf of X.
+
+$F_Y(y) = P(Y \leq y)$
+$\{Y \leq y \} = \{aX + b \leq y\}$
+
+So, if $a > 0$ then $X \leq (y-b)/a$
+Else, $X \geq (y-b)/a$
+
+SO the cdf and pdf (USE CHAIN RULE) of X applies here.
+
+In one expression, we can say that
+
+$f_Y(y) = \frac{1}{|a|}f_X(\frac{y-b}{a})$
+
+---
+
+## 18 June 2021
+
+---
+
+Continuing from yesterday with another example of when X and Y are both continuous.
+
+$Y = X^2$
+
+Here, $y \geq 0$ because of obvious reasons.
+
+- CDF
+  $F_Y(y) = P(Y \leq y)$
+  $= P(X^2 \leq y)$
+  $= P(-\sqrt{y} \leq X \leq \sqrt{y})$
+  which can be written as
+  $F_X(\sqrt{y}) - F_X(\sqrt{y}) + P(X = -\sqrt{y})$
+  $=F_X(\sqrt{y}) - F_X(\sqrt{y})$
+
+- PDF
+  $f_Y(y) = \frac{dF_Y(y)}{dy}$
+
+Example 3
+
+![exq3p1](Screenshot%20from%202021-06-27%2023-48-49.png)
+![exq3p2](Screenshot%20from%202021-06-27%2023-58-02.png)
