@@ -47,7 +47,7 @@ We may assume the channel as an ideal channel (No disturbance/noise) for analysi
 ### Transmitter side
 
 - Source (Sending information)
-- Transmitter (Modulation, amplification, and channel coding (Repeating the signal to minimise loss of information) to make the information appropriate for travelling in the channel)
+- Transmitter (Modulation, amplification, and channel coding (For example, repeating the signal to minimise loss of information) to make the information appropriate for travelling in the channel)
 - Transmission of data
 
 ### Receiver end
@@ -96,7 +96,7 @@ $Information\ content\ in\ an\ event\ X = \log \frac{1}{P(X = x)}$
 
 So the average information content (or the "expected information content") would be,
 
-$H(X) = \displaystyle \sum_{i = 1}^{n} P(X = x_i) * \log \frac{1}{P(X = x_i)}$
+$H(X) = \displaystyle \sum_{i = 1}^{n} P(X = x_i) \cdot \log \frac{1}{P(X = x_i)}$
 
 This expression is defined as the *ENTROPY* in random variable X, denoted by $H(X)$.
 
@@ -112,7 +112,7 @@ Where, $H(X_1, X_2)$ is the joint entropy of $X_1$ and $X_2$. We will be using $
 
 ---
 
-Proof for $H(X_1, X_2) = H(X_1) + H(X_2)$ where $X_1, X_2$ are independent random variables.
+Proof for $H(X_1, X_2) = H(X_1) + H(X_2)$ where $X_1, X_2$ are **independent random variables**.
 Independent random variables can be defined as two variables that are always independent for all events.
 
 $H(X_1, X_2) = \displaystyle \sum_{x_1 \in \mathcal{X_1}, x_2 \in \mathcal{X_2}}P(X_1 = x_1, X_2 = x_2)\cdot log(1/P(X_1 = x_1, X_2 = x_2))$
@@ -141,7 +141,7 @@ $H(X_2|X_1) = \displaystyle\sum_{x_1 \in \mathcal{X_1}} P(X_1 = x_1)\cdot H(X_2|
 
 while, $H(X_2|X_1 = x_1)$ is defined as,
 
-$H(X_2|X_1 = x_1) = \displaystyle\sum_{x_2 \in \mathcal{X_2}} P(X_2 = x_2|X_1 = x_1)\cdot log(1/(X_2 = x_2|X_1 = x_1))$
+$H(X_2|X_1 = x_1) = \displaystyle\sum_{x_2 \in \mathcal{X_2}} P(X_2 = x_2|X_1 = x_1)\cdot log(1/P(X_2 = x_2|X_1 = x_1))$
 
 Intuitively makes sense.
 
@@ -176,7 +176,7 @@ Can we bind $H(X)$ from above and below?
 Claim : $0 \leq H(X) \leq log|\mathcal{X}|$
 
 - Proof for $H(X) \geq 0$
-  Trivial, as $P(x) = 0 \ \forall\  x \in sup(P_x)$
+  Trivial, as $P(x) > 0 \ \forall\  x \in sup(P_x)$
   Exactly 0 when $|sup(P_x)| = 1$.
 
 - Proof for $H(X) \leq log|\mathcal{X}|$
@@ -218,7 +218,7 @@ $x_1 = x_2....=x_n$
 
 Now, if we apply this condition to $H(X) \leq log|\mathcal{X}|$,
 
-$\displaystyle\sum_{x\in sup(P_X)}\lambda_x log(1/P(x) \leq log|supp(P_X)|$
+$\displaystyle\sum_{x\in sup(P_X)}\lambda_x log(1/P(x)) \leq log|supp(P_X)|$
 
 then for equality, by above claim, we have
 
@@ -272,14 +272,15 @@ $\implies p(x) = C\cdot q(x) \ \forall x \in supp(p_X)$
 
 Now, if we take summation on both sides, we get 1 on the LHS and $\displaystyle\sum_{x \in supp(p_X)} C\cdot q(x)$
 
-Now, as $p(x)/q(x) = Constant \ \forall x \in supp(p_X)$, we can say that $|supp(q_X)| \geq |supp(p_X)|$. If $|supp(q_X)| > |supp(p_X)|$, then C will have to be greater than 1, and this is impossible as
+Now, as $p(x)/q(x) = Constant \ \forall x \in supp(p_X)$, we can say that $|supp(q_X)| \geq |supp(p_X)|$. ~~If $|supp(q_X)| > |supp(p_X)|$, then C will have to be greater than 1, and this is impossible as~~
 
+WRONG
 $C = \displaystyle(\sum_{x \in supp(p_X)}p(x)/\sum_{x \in supp(p_X)}q(x))$
 $\implies C = 1/\displaystyle\sum_{x \in supp(p_X)}q(x)$.
 
-But the max value that $\displaystyle\sum_{x \in supp(p_X)}q(x)$ can take is 1.
+~~But the max value that $\displaystyle\sum_{x \in supp(p_X)}q(x)$ can take is 1.~~
 
-So, this is a contradiction, and hence, $|supp(q_X)| = |supp(p_X)|$
+~~So, this is a contradiction, and hence, $|supp(q_X)| = |supp(p_X)|$~~
 
 So, from this, we can say that C = 1 and hence, the two probability distributions are equal for divergence equal to 0.
 
@@ -310,7 +311,7 @@ Here, both the terms in division in the log term can be proven to be valid joint
 
 So, we can now say that
 
-$H(X) - H(X|Y) = D(p(x, y)||p_X(x)\cdot p_Y(y)$
+$H(X) - H(X|Y) = D(p(x, y)||p_X(x)\cdot p_Y(y))$
 
 which is always greater than or equal to zero.
 
@@ -342,7 +343,7 @@ $H(X_1, ... X_n) = \displaystyle\sum_{x_1,... x_n \in sup(P_{X_1, ... X_n})} P(x
 
 If $X = Y$,
 
-$H(X, Y) = H(X) = H(Y)$, this is cmplete dependence.
+$H(X, Y) = H(X) = H(Y)$, this is complete dependence.
 
 If they are independent on the other hand, we get
 
@@ -375,11 +376,11 @@ $P(x, y|z) = P(x|z)\cdot P(y|x, z)$
 Mainly because it forms it's own probability distribution ig?
 This can be used to write the above expression in another way. It can be written as,
 
-$P(x_1, x_2, x_3|y_1, y_2) = P(x_1|y_1, y_2) + P(x_2|x_1, y_1, y_2) + P(x_3|x_2, x_1, y_1, y_2)$
+$P(x_1, x_2, x_3|y_1, y_2) = P(x_1|y_1, y_2) \cdot P(x_2|x_1, y_1, y_2) \cdot P(x_3|x_2, x_1, y_1, y_2)$
 
 or,
 
-$P(x_1, x_2, x_3|y_1, y_2) = P(x_1, x_2| y_1, y_2) + P(x_3|x_2, x_1, y_1, y_2)$
+$P(x_1, x_2, x_3|y_1, y_2) = P(x_1, x_2| y_1, y_2) \cdot P(x_3|x_2, x_1, y_1, y_2)$
 
 or this beauty,
 
@@ -395,7 +396,7 @@ $= P(x_1) \cdot P(x_2|x_1) \cdot P(x_3....x_n|x_1, x_2)$
 and keep splitting, same as chain rule in PRP.
 We finally get,
 
-$P(x_1, ...x_n) = P(x_1) \cdot \Pi_{i = 2}^{n} P(x_i | x_1,...x_{i-1})$
+$P(x_1, ...x_n) = P(x_1) \cdot \displaystyle\prod_{i = 2}^{n} P(x_i | x_1,...x_{i-1})$
 
 Use definition of joint entropy to finish entire proof.
 
@@ -429,12 +430,12 @@ Stuff that we WILL be doing.
 
 ## Overview of Source Coding
 
-Suppose we have $X \in {a, b}$ which is a binary source with probability distribution $P_X$.
-If the observer observes one instance of X, then wants to store/communicate it through a noise free medium, which can carry only ${0, 1}$ bits. We will only need one bit to convey this information with 2 choices.
+Suppose we have $X \in \{a, b\}$ which is a binary source with probability distribution $P_X$.
+If the observer observes one instance of X, then wants to store/communicate it through a noise free medium, which can carry only $\{0, 1\}$ bits. We will only need one bit to convey this information with 2 choices.
 
 If receiver knows $P_X(a) = 0, P_X(b) = 1$ then reciever need not even receive the signal and hence, we need 0 bits to convey this info. This information has no chance of error too, but kind of pointless. This is basically an example to show that the probability can decrease the number of required bits I guess?
 
-Now, if we have a margin of error $\epsilon$, then if any one of the events have a probability $\leq \epsilon$, then we can make do with no bits, as we cxan always declare the other event to be true (as it is within the bounds of error).
+Now, if we have a margin of error $\epsilon$, then if any one of the events have a probability $\leq \epsilon$, then we can make do with no bits, as we can always declare the other event to be true (as it is within the bounds of error).
 
 Basically, tolerating some amount of error, can give huge advantages.
 
@@ -448,7 +449,7 @@ Basically, tolerating some amount of error, can give huge advantages.
 
 - Decoder is assumed to know the probability distribution of the source, so the decoder can interpret the data accordingly.
 
-- We can club multiple random variables together, to get a lower probability of error. Individual distributions that we get from joint distributions are called marginal distributions. We can get joint distribution from marginal distribution if the random variables are independent. The picture below shows this idea.
+- We can club multiple random variable instances together, to get a lower probability of error. Individual distributions that we get from joint distributions are called marginal distributions. We can get joint distribution from marginal distribution if the random variables are independent. The picture below shows this idea.
 
 ![id2](Screenshot%20from%202021-06-18%2007-53-42.png)
 
@@ -458,7 +459,7 @@ In the case of encoding one symbol, we only have two posible code lengths, which
 
 A 1 length code could be very useful when a single tuple has a very high probability and the total probability of all other distributions is within our error limit.
 
-In summary, this idea detials the logic of combining multiple source symbols and encoding them together into some fixed length binary string (length chosen according to the dirstribution), which gives us a more efficient source code (smaller normalized length, where normalized length is the length of the compressed binary string divided by the length of the  actual string).
+In summary, this idea details the logic of combining multiple source symbols and encoding them together into some fixed length binary string (length chosen according to the dirstribution), which gives us a more efficient source code (smaller normalized length, where normalized length is the length of the compressed binary string divided by the length of the  actual string).
 
 Did an example to depict this idea. Only using fixed length binary strings here, though variable length seems to have a lot more potential in compression.
 ![id2](Screenshot%20from%202021-06-18%2008-26-12.png)
@@ -529,7 +530,7 @@ $B \to 1$
 $C \to 10$
 $D \to 11$
 
-Here, the source sequences 'BA' and 'C' are not uniquely deecodable. This has a non zero probability of error which we are not okay with.
+Here, the source sequences 'BA' and 'C' are not uniquely decodable. This has a non zero probability of error which we are not okay with.
 
 One solution is to use a PREFIX-FREE CODE.
 
@@ -555,7 +556,7 @@ If we think of the code as a binary tree
 
 ![bt](Screenshot%20from%202021-06-18%2009-33-38.png)
 
-If we represent the code like this, we can see that successor node of any code word will not be part of a prefix free code, as the predecessor node is a prefix code word. This is a necessary and sufficient condition. So, our code will be a set of nodes which are neither successors nor predecessors of each other.
+If we represent the code like this, we can see that successor node of any codeword will not be part of a prefix free code, as the predecessor node is a prefix codeword. This is a necessary and sufficient condition. So, our code will be a set of nodes which are neither successors nor predecessors of each other.
 
 More terminology:
 
@@ -577,6 +578,12 @@ This is error free as EACH SEQUENCE of source symbols will have a UNIQUE codewor
 
 The minimum possible $\overline{L}$ among all codes is denoted as $\overline{L}^{*}$.
 
+We will show that
+
+$$H(X) + 1 \geq \overline{L}^{*} \geq H(X)$$
+
+no matter what code we use.
+
 ---
 
 ## 21 June 2021
@@ -589,7 +596,7 @@ Some mad discussion about achievability and converse.
 
 We give input, which is then translated and passed through a channel to give an output in a different language.
 
-We say that a channel is noisy when we have a many one relation from input to output. The different one one relationshipps won't matter because we'll still have unique relations between input and output, which can be decoded by some decoder. Will be discussed later apparently.
+We say that a channel is noisy when we have a many one relation from input to output. The different one one relationships won't matter because we'll still have unique relations between input and output, which can be decoded by some decoder. Will be discussed later apparently.
 
 If we have a many one relation, then we only choose one of the many words that map to one codeword, and we omit the rest from our vocabulary, which is called the set of all transmittable sequences... Seems like a pretty scammy workaround?
 
@@ -618,7 +625,7 @@ Same input can give many different outputs with different probabilities. We use 
 
 Intuitively there is no way to reduce error in this case unless we change n. So if we increase n, then we get a code with a smaller rate, and hence intuitively lesser error.
 
-So for negligible probability of error, intuition would lead us to a code with nearly zero rate. 
+So for negligible probability of error, intuition would lead us to a code with nearly zero rate.
 
 Surprisingly, this is not the case in the ideal sense. Assuming we have freedom to choose n, we actually end up saying for ANY small $\epsilon > 0$, there exists a code $\mathcal{C}$ with $P(error) < \epsilon$, and the rate of that code is,
 
@@ -626,9 +633,11 @@ Surprisingly, this is not the case in the ideal sense. Assuming we have freedom 
 
 $f(\epsilon)$ here is negligibly small.
 
+MAKES INTUITIVE SENSE AS THE INITIAL STATE IS UNCERTAINTY IN X AND THE CHANGE IN UNCERTAINTY AFTER OBSERVING Y IS H(X) - H(X|Y) WHICH IS WHAT IS GIVEN IN THE FORMULA.
+
  Now,
 
-- $I(X;Y)$ depemds on the conditional distribution we have for Y and X depending on the channel. Cannot be directly controlled by us.
+- $I(X;Y)$ depends on the conditional distribution we have for Y and X depending on the channel. Cannot be directly controlled by us.
 
 - Also depends on distribution of $P_X$. $P_Y$ can be derived from these two itself. As X is not a "natural source", we can manipulate it, and hence we consider it to be controllable, and use it to maximise our requirements. So, we have
 
@@ -648,14 +657,14 @@ $\mathcal{X} = \{0, 1\} = \mathcal{Y}$
 
 So, we can say
 
-$P_{Y|X}(y|x = 0) = (p, for y = 1)and (1-p, for y = 0)$
+$P_{Y|X}(y|x = 0) = (p, for \ y = 1)and (1-p, for \ y = 0)$
 
-$P_{Y|X}(y|x = 1) = (p, for y = 1)and (1-p, for y = 0)$
+$P_{Y|X}(y|x = 1) = (p, for \ y = 0)and (1-p, for \ y = 1)$
 
 This is a symmetric distribution, hence the name "symmetric channel".
 So, we can say that a bit flip for an input occurs with a probability p.
 
-This implies $H(Y|X = 0) = H(Y|X = 1) = H_2(P)$, where $H_2(P)$ is that value.
+This implies $H(Y|X = 0) = H(Y|X = 1) = H_2(P)$, where $H_2(P)$ is that value. It attains a max value of 1 for a uniform distribution.
 
 Pictorial representation:
 
@@ -665,14 +674,193 @@ We want to calculate capacity of this channel now. So,
 
 $I(X;Y) = H(Y) - H(Y|X)$
 
+But $H(Y|X) = H_2(P)$ and that is not influenced by choice of $P_X$, as the probability of bit flip is determined by the channel.
+
+We also know that $max_{P_X}H(Y) \leq 1$.
+
+Here, $H(Y) = 1$ for a uniform distribution of X (can be proved). This gives us
+
+$R(\mathcal{C}) = max_{P_X}(I(X;Y)) = 1 - H_2(p)$
+
 ---
 
 ## 25 June 2021
 
 ---
 
+We will give an argument for the converse for capacity of a binary symmetric channel.
+
+Let $\mathcal{C}$ be a code which has rate R and a low probability of error.
+
+Now, we know that
+
+$R = log|\mathcal{C}|/n \implies |\mathcal{C}| = 2^{nR}$
+If we transmit a codeword C with a large length n, and get an output y, then we can expect approximately $np$ bits to be flipped in y. (Channel is independently acting on each input) But we don't know which positions are flipped. So, we can expect any sequence in $S(C)$, where $S(C)$ can be defined as
+
+$$S(C) = \{y \in \{0, 1\}| d_H(C, y) = np\}$$
+
+$d_H$ here is called the **Hamming Distance** which is the number of positions we need to flip in C to get y.
+We can assume a venn diagram like image of the codewords and radius as Hamming distance. By this, we can conclude that we must not have intersecting balls, as that would imply many one relations. So that would lead us to say,
+
+$|\mathcal{C}| \leq \frac{2^n}{|S(C)|}$
+
+Now here, $S(C) = n\choose np$ and we can substitue that in the expression. Now, to find rate
+
+$log|\mathcal{C}| \leq n - log(|S(C)|)$
+The second term is approximately $nH_2(p)$ (From source coding).
+Now dividing both sides by N, we get rate less than or equal to capacity.
+
+The proof in words,
+
+- Code with small error
+
+- Balls should not intersect because of that
+
+- So we only have those a certain size of code, which determined the rate of the code.
+
+Achievability will be done later, this is the converse.
+
+History talk and overview of the stuff we will be doing in the course.
+
 ---
 
 ## 28 June 2021
+
+---
+
+Recap and some pretty cool history stuff.
+
+Recall Source coding.
+
+$Source \to X \to Source \ encoder \to Codewords(\mathcal{C})$
+
+Assume that the codewords are binary strings. Codewords for each symbol in $\mathcal{X}$ that has non zero probability.
+
+Now, if the random variable X is distributed according to $P_X$ and $C(x)$ be the codeword assigned to $x \in \mathcal{X}$.
+
+$l(x)$ be the length of the codeword assigned to $x$.
+Fixed length to variable length source coding. Here, the fixed length of source sequence is 1 (Because each symbol has a codeword).
+
+Set of codewords,
+$\mathcal{C} = \{C(x) | x \in \mathcal{X}\}$
+
+Our goal is to design a PREFIX FREE code $\mathcal{C}$ which has optimal expected length (that summation formula from before).
+
+**Lemma:** $L^{*} \geq H(X)$
+
+This implies any prefix free code for X has a length of at least H(X).
+
+Proof:
+
+To prove this, we need the following claim.
+
+**Claim (Kraft's inequality):** Let $\mathcal{C}$ be any prefix free code. Then
+
+$$\displaystyle\sum_{x\in\mathcal{X}}2^{-l(x)} \leq 1$$
+
+- Proof for claim:
+  We know that any prefix free code can be represented using a binary tree which has the leaves as codewords.
+
+  ![bt2](Screenshot%20from%202021-06-28%2009-32-29.png)
+
+  The depth of the binary tree corresponding to the code is the length of the largest codeword in that code ($l_{max} = max(l(x))$).
+
+  Suppose there is a codeword with length $l$ ($l \leq l_{max}$). If we look down from this point in the tree, there are $l_{max} - l$ levels below it. It will have $2^{l_{max} - l}$ successors in the complete binary tree, but none of them are codewords, as the code is prefix free. Idk how this helps, but there it is.
+
+  No two codewords IN A PREFIX FREE CODE, can have a common successor. So we can say,
+
+  $$\displaystyle\sum_{x\in\mathcal{X}}2^{l_{max} - l} \leq 2^{l_{max}}$$
+
+  RHS is max number of codewords possible.
+  Dividing both sides gives us the required result.
+  
+Now, back to the Lemma...
+We need to prove that,
+
+$$L^{*} - H(X) \geq 0$$
+$$\implies \displaystyle\sum_{x\in\mathcal{X}}p(x)l(x) - \sum_{x\in\mathcal{X}}p(x) log(\frac{1}{p(x)}) \geq 0$$
+
+If we think of $D(p_X||q_X) \geq 0$
+We can define $q_X(x)$ as,
+
+![defq](Screenshot%20from%202021-06-28%2009-55-38.png)
+
+Using this in the expression for $D(p_X||q_X)$, (take image from recording and put it here).
+
+![proo1](Screenshot%20from%202021-07-07%2016-36-22.png)
+![proo2](Screenshot%20from%202021-07-07%2016-37-23.png)
+
+Equality happens when $p_X = q_X$, and that non positive term is zero.
+
+---
+
+## 30 June 2021
+
+---
+
+Now suppose we have a RV $X \in \{x_1, .... x_k\}$ and +ve integers such that $\displaystyle\sum_{x\in\mathcal{X}}2^{- l_i} \leq 1$, then there exists a prefix free code for X with codeword lengths $l_i$.
+
+Proof:
+
+We will show that we can construct a binary tree with leaves at depths $l_1,..., l_k$.
+
+Assume that,
+
+$$l_1 \leq l_2 \leq...... \leq l_k$$
+
+WLOG. Now, for any $i \leq k$,
+
+$$\displaystyle\sum_{j = 1}^{i-1}2^{-l_j} < 1 ...........(A)$$
+
+as we are only summing up to k - 1 terms at max. Now we construct a tree with $l_k$ levels, and we pick an available node at every step of the algorithm, and delete all of its successors. This gives us a prefix free tree.
+
+We have to show that at each step, there is at least one undeleted node left a level i. For this, we us that above statement from Kraft's inequality (A).
+
+Trivially, there is a node at $l_1$.
+
+Now for some level $i \leq k$,
+
+Total nodes deleted at level k because of deletions of successors will be,
+
+$\displaystyle\sum_{j = 1}^{i-1}2^{l_k-l_j}$
+
+So nodes remaining at k are
+
+$2^{l_k}(1-\displaystyle\sum_{j = 1}^{i-1}2^{-l_j})$
+
+From (A), we can say that this value will always be positive for all i.
+
+So, we always have nodes remaining at level k. By this, we can say that every level i must have nodes too, as level k is below i.
+Hence proved.
+
+Remark: We construct the tree from smallest length codewords to largest length. The optimal code construction we will discuss will be constructed in reverse.
+
+Now, if we have an RV X with a probability distribution $P_X$, we want to obtain the collection of integers $l_1, ..l_k$ such that Kraft inequality is satisfied. Then we can construct the code as shown above. We can technically pick any $l_i$ that satisfies it, but then we need to minimise the average length of the code as well. So we give small $l_i$ for larger $p_i$ and vice versa. Essentially, more probable symbols get smaller codewords.
+
+**Idea behind Shannon Fano codes**
+
+To do what we stated above, we can fix $l_i = ceil(log(1/p_i))$ where $p_i$ is probability of ith symbol. Clearly, $l_1 \geq 1$. Now checking Kraft's inequality,
+
+![cki](Screenshot%20from%202021-07-09%2000-19-35.png)
+
+So we can use that tree construction for getting the code now. This code is called the Shannon Fano code for X.
+
+Expected length of Shannon Fano code
+
+$$L_{sf} = \displaystyle\sum_{i = 1}^{k}p_i\cdot ceil(log(1/p_i))$$
+
+Now, 
+
+$$\displaystyle\sum_{i = 1}^{k}p_i\cdot ceil(log(1/p_i)) < \displaystyle\sum_{i = 1}^{k}p_i\cdot (log(1/p_i) + 1)$$
+
+which implies
+
+$$\displaystyle\sum_{i = 1}^{k}p_i\cdot ceil(log(1/p_i)) < H(X) + 1$$
+
+This also shows that Shannon Fano code isn't always the optimal code for all X.
+
+---
+
+## 2 July 2021
 
 ---

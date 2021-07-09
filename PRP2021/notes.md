@@ -403,7 +403,7 @@ Here, X is an RV. So,
 $X:S \to R$
 $g:R \to R$
 
-Y is an RV when g satisfies some conditions, i.e., when g is a measuable function. Y is an RV basically when
+Y is an RV when g satisfies some conditions, i.e., when g is a measurable function. Y is an RV basically when
 
 $Y^{-1}((-\infty, y]) \in F$
 
@@ -476,3 +476,8 @@ Example 3
 
 ![exq3p1](Screenshot%20from%202021-06-27%2023-48-49.png)
 ![exq3p2](Screenshot%20from%202021-06-27%2023-58-02.png)
+
+
+Cannot relate much after this point, just got more confusing, check probabilitycourse.com for a nice explanation =P
+
+---

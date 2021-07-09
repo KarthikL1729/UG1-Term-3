@@ -433,7 +433,7 @@ So,
 
 $$H(\omega) = \frac{\frac{1}{RC}}{\frac{1}{RC}+j\omega}$$
 
-So, usin standard fourier transform formulae, we can get
+So, using standard fourier transform formulae, we can get
 
 $h(t) = \frac{1}{RC} e^{-t/RC}u(t)$
 
@@ -455,7 +455,7 @@ Example question
 
 This is an example of amplitude modulation. As we can see, the amplitude has decreased. In the above case, cosine is the carrier signal, and the weird thing is the message signal.
 
-For demodulation, we just multiply the receved signal with the same carrier wave.
+For demodulation, we just multiply the received signal with the same carrier wave.
 
 ![dem](Screenshot%20from%202021-06-17%2001-14-35.png)
 We'll need to scale it as required. Low pass filter to get that middle copy.
@@ -701,3 +701,198 @@ For example, if we take $cos(5n)$, as 5 does not satisfy that condition for any 
 ## 23 June 2021
 
 ---
+
+- $e^{j\omega n} \to$ Highest frequency = $\plusmn pi$, Lowest frequency = 0.
+
+![sinf](Screenshot%20from%202021-07-05%2015-29-47.png)
+
+### Discrete time LTI systems (Also called LSI, S for shift)
+
+Systems that follow are linear and time/shift invariant, just like in continuous time.
+
+- Linearity:
+  $x_1 \to y_1, x_2 \to y_@ \implies \alpha x_1 + \beta x_2 \to \alpha y_1 + \beta y_2$
+
+- Time invariance:
+  $x[n] \to y[n] \implies x[n - n_0] \to y[n - n_0]$
+
+Examples:
+
+- $y[n] = x[n-n_0]$, is LTI.
+- $y[n] = x^2[n]$, is time invariant only.
+- $y[n] = x[n] + x[n-1]$, is LTI.
+- $y[n] = nx[n]$, is only linear.
+
+**Representing signals using impulses**
+
+$x[n] = x[0]\delta[n] + x[1]\delta[n - 1] + x[-1]\delta[n + 1]......$
+
+Impulses in discrete time are well behaved, and are just equal to one, not tending to infinity or something.
+
+**Impulse response of LTI system**
+
+$\delta[n] \to h[n]$ in LTI system.
+
+So, from this we can say that on passing a function into an LTI system, we get
+
+$y[n] = \displaystyle\sum_{-\infty}^{\infty} x[k]h[n-k]$
+
+$y[n] = x[n] * h[n]$
+
+That summation is the convolution sum.
+
+Properties of convolution $\to$ commutative, associative, distributive.
+
+Unit impulse (discrete time) properties
+
+- $x[n]\delta[n-k] = x[k]$
+  
+- $x[n]*\delta[n-k] = x[n-k]$
+
+- $x[n]*\delta[n] = x[n]$
+  
+### Discrete time Fourier Transform (DTFT)
+
+Analogous to continuous time Fourier transform.
+
+We define the DTFT of a function $x[n]$ as
+
+$$g(\omega) = \displaystyle\sum_{-\infty}^{\infty} x[n]e^{-j\omega n}$$
+
+---
+
+## 25 June 2021
+
+---
+
+Notice that the DTFT for any signal is periodic with period $2\pi$. As shown below,
+
+$g(\omega + 2\pi) = \displaystyle\sum_{-\infty}^{\infty} x[n]\cdot e^{-j(\omega+2\pi) n} = \sum_{-\infty}^{\infty} x[n]\cdot e^{-j\omega n} \cdot e^{-j2\pi n} = \sum_{-\infty}^{\infty} x[n]\cdot e^{-j\omega n} = g(\omega)$
+
+Nice table:
+![ntable](Screenshot%20from%202021-07-08%2000-25-43.png)
+
+Proof for synthesis:
+![psyn](Screenshot%20from%202021-07-08%2000-26-24.png)
+
+This can be compared to impulse train sampling, as impulse train sampling also made copies of the signal.
+
+Ultra cool map that's kinda confusing:
+![map](Screenshot%20from%202021-07-08%2000-51-16.png)
+
+DTFT can also be compared to Fourier Series. It's like the reverse, because here, frequency is continuous, and we have a perioic signal in frequency domain. In FS, we get a periodic and continuous signal in time domain. We also have discrete time in DTFT, while we have discrete frequencies in FS.
+
+---
+
+## 28 June 2021
+
+---
+
+Organization of Fourier Analysis:
+![or](Screenshot%20from%202021-07-08%2019-58-38.png)
+
+Standard signals and their DTFT:
+
+- $\delta[n] \longleftrightarrow 1$
+
+- $\delta[n - n_0] \longleftrightarrow e^{-j\omega n_0}$
+  
+- Unit impulse in frequency (Impulse train, because it has to be periodic)
+  $X(e^{j\omega}) = \displaystyle\sum_{k = -\infty}^{\infty} \delta(\omega - 2\pi k)$
+
+  So,
+  $x[n] = \frac{1}{2\pi}\displaystyle\int_{-\pi}^{\pi}X(e^{j\omega})e^{j\omega} d\omega$
+  
+  $\implies x[n] = \frac{1}{2\pi} \forall n$
+
+- Shifted impulse in frequency
+  Like before (stil impulse train, but we find for one time period, also like before)
+
+  $\delta(\omega - \omega_0) \longleftrightarrow \frac{1}{2\pi} e^{j\omega_0 n}$
+
+- One sided exponential
+  
+  $x[n] = a^nu[n], |a| < 1$
+
+  Its DTFT is
+  $x[n] \longleftrightarrow \frac{1}{1-ae^{-j\omega}}$
+
+  From this we get
+
+  $|X(e^{j\omega})| = 1/\sqrt{1 + a^2 - 2acos(\omega)}$
+
+  On plotting this for positive a and negative a, we get
+  ![plot](Screenshot%20from%202021-07-08%2020-42-36.png)
+
+  As we can see, we can use the negatove a graph as a non ideal high pass filter, and the positive a graph as a non ideal low pass filter, as done in lab.
+
+- Rectangular pulse in frequency, given below
+  
+  ![refr1](Screenshot%20from%202021-07-08%2020-49-15.png)
+  ![refr2](Screenshot%20from%202021-07-08%2020-49-24.png)
+
+---
+
+## 30 June 2021
+
+---
+
+Continuing from last class...
+
+- Rectangular pulse in time
+  
+  Derived below.
+  ![der](Screenshot%20from%202021-07-08%2021-04-06.png)
+  This is like a periodic sinc, with period $2\pi$, and is real valued.
+
+**Discrete time LTI systems analysis using DTFT**
+
+When $x[n] = e^{j\omega n}$,
+
+$y[n] = x[n] * h[n] = \displaystyle\sum_{-\infty}^{\infty} x[k]h[n-k]$
+
+Substituting x[n], 
+
+$y[n] = \displaystyle\sum_{-\infty}^{\infty} e^{j\omega k}h[n-k]$
+
+$\implies y[n] = \displaystyle\sum_{-\infty}^{\infty} e^{j\omega (n-m)}h[m]$
+
+$\implies y[n] = e^{j\omega n}\displaystyle\sum_{-\infty}^{\infty} e^{-j\omega m}h[m]$
+
+$\implies y[n] = H(e^{j\omega})e^{j\omega n}$
+
+Thus, complex exponents are eigenfunctions.
+
+- Convolution property
+  
+  $x[n]*h[n] = y[n]$
+
+  $Y(e^{j\omega}) = X(e^{j\omega})\cdot H(e^{j\omega})$
+
+The frequency selectivity of an LTI system is determined by its frequency response $H(e^{j\omega})$. We usually pay attention to the magnitude response, which is $|H(e^{j\omega})|$.
+
+Filters:
+
+- Ideal LPF and HPF:
+  Graph of Magnitude response
+  ![imr](Screenshot%20from%202021-07-09%2011-23-54.png)
+
+  Their graphs will be sampled sincs in time domain.
+
+- All pass filter:
+  $h[n] = \delta[n - n0]$, magnitude response is just a constant.
+
+- Non ideal filters
+  Did these filters in lab.
+
+  - Moving average filter (Non ideal low pass filter)
+  - Digital differentiator filter (Non ideal High pass filter)
+  
+  The plot for the magnitude responses of these filters allows us to find the nature of their filtering.
+
+---
+
+## 2 July 2021
+
+---
+
