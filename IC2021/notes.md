@@ -543,8 +543,7 @@ Both refer to the mapping. Not the source signal or input.
 
 Continuing...
 
-A code C is called a Prefix free code if no Codeword in C is a prefix of another codeword, i.e., 
-the example shown above shouldn't happen. In the example above, 1 is a prefix of the code words 11 and 10. So, it is not a prefix free code.
+A code C is called a Prefix free code if no Codeword in C is a prefix of another codeword, i.e., the example shown above shouldn't happen. In the example above, 1 is a prefix of the code words 11 and 10. So, it is not a prefix free code.
 
 Example of a Prefix free code $\to$ {10, 01, 11, 00}
 
@@ -849,7 +848,7 @@ Expected length of Shannon Fano code
 
 $$L_{sf} = \displaystyle\sum_{i = 1}^{k}p_i\cdot ceil(log(1/p_i))$$
 
-Now, 
+Now,
 
 $$\displaystyle\sum_{i = 1}^{k}p_i\cdot ceil(log(1/p_i)) < \displaystyle\sum_{i = 1}^{k}p_i\cdot (log(1/p_i) + 1)$$
 
@@ -864,3 +863,129 @@ This also shows that Shannon Fano code isn't always the optimal code for all X.
 ## 2 July 2021
 
 ---
+
+Example for Shannon Fano code
+
+$X \in \mathcal{X} = \{x_1, x_2, x_3, x_4\}$
+
+$P_X(x_i) = 1/4 for i = 1, 1/2 for i = 2, 1/9 for i = 3, 5/36 for i = 4$
+
+Length of codewords satisfying Kraft inequality for the Shannon Fano code
+
+$l_i = ceil(log(1/P_X(x_i)))$
+
+This gives us
+
+$l_1 = 2$
+$l_2 = 1$
+$l_3 = 4$
+$l_4 = 3$
+
+So, we get
+
+$\overline{L} = \displaystyle\sum_{i = 1}^{4} p_il_i$
+
+This gives us $\overline{L} = 67/36$
+We can verify that this value lies between $H(X)$ and $H(X) + 1$
+
+Now we can construct the tree accoeding to these lengths.
+
+![treee](Screenshot%20from%202021-07-10%2010-32-37.png)
+
+That's it for Shannon Fano codes. This is NOT optimal in general. To prove this we will show a code construction that beats it in optimality, which is called the Huffman code.
+
+### Some Lemmas about an optimal code for an RV X
+
+Assume that $X \in \mathcal{X} = \{x_1, x_2,..., x_k\}$ and $P_X(x_i) = p_i$. WLOG, we assume that $p_1 \geq p_2 \geq.......\geq p_k$
+
+- Lemma 1: Consider that $l_1, ...l_k$ are lengths of codewords associated to the codewords in any optimal code for X. Then,
+  $$l_1 \leq l_2 \leq ... l_k$$
+
+  Proof: Suppose $\mathcal{C}$ is an optimal code in which there exists $1 \leq i, j \leq k$such that $p_i > p_j$, but $l_i > l_j$
+
+  We will show that there exists another code $\mathcal{C'}$ which has smaller average length than $\mathcal{C}$, which contradicts the optimality of $\mathcal{C}$.
+
+  Consider $\mathcal{C'}$, which is the same as $\mathcal{C}$ but the codewords for $x_i, x_j$ are swapped.
+
+  Now, in $\mathcal{C'}$, $l_{i, \mathcal{C'}} = l_{j, \mathcal{C}}$ and same for the other codeword. So now, as there have been no CHANGES in codewords, we can conclude that $\mathcal{C'}$ is also prefix free. Now, we can say
+
+  $$\overline{L}_{\mathcal{C'}} = \displaystyle\sum_{k\in\{1,..,k\} - \{i, j\}}p_kl_k + p_il_j + p_jl_i$$
+
+  $$\overline{L}_{\mathcal{C}} = \displaystyle\sum_{k\in\{1,..,k\}} p_kl_k$$
+
+  So,
+
+  $\overline{L_{\mathcal{C'}}} - \overline{L_{\mathcal{C}}} = p_i(l_j - li) + p_j(l_i - l_j)$
+
+  $\implies \overline{L_{\mathcal{C'}}} - \overline{L_{\mathcal{C}}} = (l_j - li)(p_i - p_j)$
+
+  The RHS here is strictly negative, so here we reach a contradiction, as the initial code length is not optimal. Hence proved.
+
+- Lemma 2: Consider the tree representation of an optimal prefix free code. For such a tree, every node must be a codeword, or it must have at least 2 successors which are codewords. This can be rephrased as "There are no unused leaves in the tree of an optimal code."
+
+---
+
+## 3 July 2021
+
+---
+
+Continuing with lemma 2...
+
+Proof:
+
+Let $\mathcal{C}$ be the optimal code. If we consider the tree corresponding to it, with an unused leaf,
+
+![trul](Screenshot%20from%202021-07-10%2019-46-52.png)
+
+We can transform such a tree into,
+
+![trul2](Screenshot%20from%202021-07-10%2019-48-55.png)
+
+As we can see, here we have a shorter tree, which has a lower expected length than our previous code. The new code is still prefix free. This contradicts the optimality of $\mathcal{C}$. So, we have proved our claim.
+
+**Every optimal code must follow the above two lemmas.**
+
+- Lemma 3: There exists an optimal prefix free code for RV X such that the codewords associated to the two lowest probability symbols are siblings.
+
+  Proof: Let $\mathcal{C}$ be some optimal code for X. If it already satisfies the property, there is nothing to show.
+
+  If it doesn't follow the lemma, we can use the fact that $l_{k-1} \leq l_k$ as $P_{k-1} \geq P_k$. So, as they are not siblings, $P_k$ node will definitely have a sibling. Let us call that sibling $P_i$ because of lemma one and lemma 2. Now, by lemma 1, we say that $l_{k-1}$ is the second largest. So, $l_i$ will have to be lesser then it. By this, we get
+
+  $$l_i \leq l_{k-1} \leq l_k$$
+
+  But we also know that $l_k = l_i$ as they are siblings. This leads us to
+
+  $$l_i \leq l_{k-1} \leq l_k = l_i$$
+
+  This implies
+
+  $$l_i = l_{k-1} = l_k$$
+
+  Now, we can interchange the codewords for the ith symbol and (k-1)th symbol as they are at the same level, and obtain a new code. This code still has the same expected length, and is hence still optimal. This code however, satisfies our property. Hence, proved.
+
+### Huffman Coding
+
+Assume that $P_X$ is $p_1 \geq p_2 .... \geq p_k$. Now, this code incorporates a bottom up approach to buliding the tree. We first mark out leaves, and then work our way up to the root.
+
+We start by combining the two least probability symbols into one node with two leave, and now consider a new probability distribution with k-1 terms, the last term being $p_k + p_{k-1}$. We perform the same operation again, and continue building our tree until we have nothing left to combine. Now we have our tree. This tree gives us the Huffman code, which is optimal.
+
+Example:
+
+![huffex](Screenshot%20from%202021-07-10%2020-16-04.png)
+
+---
+
+## 5 July 2021
+
+---
+
+**Huffman code - Proof of optimality**
+
+Claim:
+
+Let $\overline{L}_{Huffman} = min(\overline{L}_\mathcal{C})$ for all prefix free codes $\mathcal{C}$.
+
+Proof:
+We will write the average length of some code for some random variable taking m values with probability $q_1, q_2..., q_m$ as $L_\mathcal{C}$
+
+Optimal length for the same distribution above is written as $L*$
