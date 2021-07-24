@@ -83,7 +83,7 @@ Other communication systems
 
 - What is information? (Handwavy answers about usefulness)
 - Information of any outcome has to do with the uncertainity of the outcome.
-- Example : Say that X $\isin$ {0, 1} & can take value 0 with probability p, while 1 has a probability of 1 - p. X can be any quantity that represents a choice we care about. X is technically called a random variable.
+- Example : Say that X $\in$ {0, 1} & can take value 0 with probability p, while 1 has a probability of 1 - p. X can be any quantity that represents a choice we care about. X is technically called a random variable.
 If probability of a certain event occuring is low or the occurence of that event is highly unlikely, then X denoting the occurence of that event is said to have large information content.
 
 $Information\ content\ in\ a\ particular\ event \ \alpha \ \frac{1}{Probability\ of\ the\ event}$
@@ -100,7 +100,7 @@ $H(X) = \displaystyle \sum_{i = 1}^{n} P(X = x_i) \cdot \log \frac{1}{P(X = x_i)
 
 This expression is defined as the *ENTROPY* in random variable X, denoted by $H(X)$.
 
-Lemma $\to$ Suppose $X_1 \isin x_1$ and $X_2 \isin x_2$ are independent random variables, then
+Lemma $\to$ Suppose $X_1 \in x_1$ and $X_2 \in x_2$ are independent random variables, then
 
 $H(X_1, X_2) = H(X_1) + H(X_2)$
 

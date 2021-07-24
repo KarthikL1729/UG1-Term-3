@@ -711,7 +711,7 @@ For example, if we take $cos(5n)$, as 5 does not satisfy that condition for any 
 Systems that follow are linear and time/shift invariant, just like in continuous time.
 
 - Linearity:
-  $x_1 \to y_1, x_2 \to y_@ \implies \alpha x_1 + \beta x_2 \to \alpha y_1 + \beta y_2$
+  $x_1 \to y_1, x_2 \to y_2 \implies \alpha x_1 + \beta x_2 \to \alpha y_1 + \beta y_2$
 
 - Time invariance:
   $x[n] \to y[n] \implies x[n - n_0] \to y[n - n_0]$
@@ -806,7 +806,7 @@ Standard signals and their DTFT:
   $\implies x[n] = \frac{1}{2\pi} \forall n$
 
 - Shifted impulse in frequency
-  Like before (stil impulse train, but we find for one time period, also like before)
+  Like before (still impulse train, but we find for one time period, also like before)
 
   $\delta(\omega - \omega_0) \longleftrightarrow \frac{1}{2\pi} e^{j\omega_0 n}$
 
@@ -851,7 +851,7 @@ When $x[n] = e^{j\omega n}$,
 
 $y[n] = x[n] * h[n] = \displaystyle\sum_{-\infty}^{\infty} x[k]h[n-k]$
 
-Substituting x[n], 
+Substituting x[n],
 
 $y[n] = \displaystyle\sum_{-\infty}^{\infty} e^{j\omega k}h[n-k]$
 
@@ -896,3 +896,312 @@ Filters:
 
 ---
 
+Properties of DTFT
+
+- Convolution
+- Linearity
+- Time shift
+- Frequency shift
+- Symmetry
+- Differentiation in Frequency
+- Parsevals relation
+  
+  $\displaystyle\sum_{-\infty}^{\infty}|x[n]|^2 = \frac{1}{2\pi}\int_{-\pi}^{\pi} |X(e^{j\omega})|^2 d\omega$
+
+- Multiplication property
+  
+  $y[n] = x_1[n]\cdot x_2[n]$
+
+  $\implies Y(\omega) = \frac{1}{2\pi}\displaystyle\int_{-\pi}^{\pi} X_1(\theta)\cdot X_2(\omega-\theta) d\theta$
+
+  Regular convolution will not work, as the integral may tend to infinity.
+
+### Discrete Fourier Transform (DFT)
+
+DFT is very machine friendly.
+Consider a finite sequence $x[n], n\in \{0, 1, 2..., N-1\}$.
+
+We can sample the DTFT of the sequence at $\omega_
+k = 2\pi k/N, k = 0, 1, ..., N-1$. This gives us
+
+$X[k] = \displaystyle\sum_{n = 0}^{N-1}x[n]\cdot e^{-j\omega_k n}$ (Because the rest are 0).
+
+This is the DFT of the N length sequence x[n].
+
+Inverse DFT is getting x[n] from X[k].
+Consider
+
+$S_m = \displaystyle\sum_{k=0}^{N-1} X[k]e^{j2\pi kn/N}$. On substituting the formula for X[k], we get
+
+![IDFTd](Screenshot%20from%202021-07-10%2021-47-39.png)
+
+**DFT is an orthogonal transformation.**
+
+Derivation for impulse train:
+![Derivation for impulse train](Screenshot%20from%202021-07-12%2000-03-56.png)
+![Derivation continued](Screenshot%20from%202021-07-12%2000-04-23.png)
+
+---
+
+## 5 July 2021
+
+---
+
+Recap:
+![Recap of lec 18](Screenshot%20from%202021-07-12%2000-01-15.png)
+
+### DFT as linear combination of signals
+
+A DFT can be understood as a linear combination of complex sinusoids of the form $e^{j2\pi kn/N}$, with n as the time variable.
+
+Time period for all these signals is N (not necessarily the fundamental period). Here, we only have a finite set of signals to linearly combine,as it is discrete.
+
+### Periodicity of DFT
+
+$X[k + N] = X[k]$
+
+$x[n + N] = x[n]$
+This works if we want to extend the intial n length sequence periodically.
+Bascially when we sample the DTFT, we get a periodic discrete signal in frequency domain. This sampling is done by multiplying the DTFT by an impulse train. 
+
+So, we can use convolution property here, which says that this will be equivalent to convolution in time domain, with another impulse train (as DFT of impulse train is impulse train). This gives us our periodic time domain signal, which is basically copies of our original n point time domain signal.
+
+We also NEED a minimum of n points in our DFT, anything less than that would cause aliasing in time domain, but anything more is good. More would give us spaces in between the copies. Shown below:
+
+![Periodicity of DFT](Screenshot%20from%202021-07-12%2000-30-14.png)
+
+### DFT as an orthogonal linear transformation
+
+$X = F_N \cdot x$, where $F_N$ is a matrix.
+
+Let $W_N = e^{-j2\pi/N}$. With this, we can derive $F_N$.
+
+Clearly, $(F_N)_{k, n} = W_N^{kn}$. Using this, if we fill in the matrix of $F_4$ for example, we get
+
+![$F_4$ example](Screenshot%20from%202021-07-23%2016-03-48.png)
+
+The $W_N$s used are called **twiddle factors**. As we can see from the image above, $F_2$ has a very simple structure, and we exploit this structure in the implementation of an efficient algorithm for calculating the DFT of a sequence called the Fast Fourier Transform, or the FFT.
+
+The inverse DFT can be calculated as shown above in the image.
+
+Ex :
+
+![N point DFT example](Screenshot%20from%202021-07-23%2016-11-45.png)
+
+Ex 2:
+
+![N point DFT of a rectangular pulse type discrete wave](Screenshot%20from%202021-07-23%2016-14-46.png)
+
+---
+
+## 7 July 2021
+
+---
+
+Recap of DFT till now:
+
+![Recap](Screenshot%20from%202021-07-24%2007-23-46.png)
+
+---
+
+## 16 July 2021
+
+---
+
+### Z transform
+
+Z transform is a generalisation of DTFT, like Laplace transform is a generalisation of Fourier Transform.
+
+$e^{-j\omega t} \ (FT) \to e^{-\delta t} \ (\delta = \sigma + j\omega) \ (Laplace \ Transform)$
+
+$e^{-j\omega n} \ (DTFT) \to z^{-n} \ (z = re^{j\omega}) \ (Z- Transform)$
+
+The Z transform of a signal $x[n]$ is a complex valued function. The expression is
+
+$$X(z) = \displaystyle\sum_{-\infty}^{\infty} x[n]\cdot z^{-n}$$
+
+As we can clearly see, the DTFT is a special case of the Z transform, as it is the same as what we get when we subsitute $r = 1$ for $z$ in the above equation.
+
+On the Z plane, this special case is represented by the unit circle.
+
+#### Convergence of Z Transform
+
+Region of convergence (ROC) $\to$ region in z plane where $X(z)$ converges.
+
+**If unit circle does not exist in the ROC, then the DTFT for that signal does not exist.**
+
+Examples:
+
+![Examples of solved z transforms](Screenshot%20from%202021-07-24%2007-54-33.png)
+
+We are mainly interested in Z transforms of the form
+
+$$X(z) = \frac{N(z)}{D(z)}$$
+
+i.e., ratio of polynomials in z. Here, when $N(z) = 0$, we have **zeroes** of $X(z)$, and when $D(z) = 0$, we have **poles** of $X(z)$. Poles are points where $X(z)$ is not finite, while zeroes are quite obviously points where $X(z)$ is zero.
+
+**Without specifying an ROC the expression for a Z transform is incomplete**. As seen in a few examples below, the same $X(z)$ could correspond to different ROCs and hence, different signals.
+Examples:
+
+![Example 1](Screenshot%20from%202021-07-24%2008-03-17.png)
+
+![Example 2](Screenshot%20from%202021-07-24%2008-05-15.png)
+
+As seen in the above two examples, the expression we get for $X(z)$ is the same, but the ROC is different, which leads to different signals.
+We must also note that the ROC always has circular symmetry. Can be of three types,
+
+- $|z| > r_0$
+- $|z| < r_0$
+- $r_1 < |z| < r_2$
+
+Generalised example would be
+
+![General examples of example 1 and 2](Screenshot%20from%202021-07-24%2008-37-24.png)
+
+The first example here can be called a causal signal ($x[n] = 0 \ for \ n < 0$), and the second would be called an anti causal signal.
+
+![One transform with 3 possible ROCs](Screenshot%20from%202021-07-24%2008-37-44.png)
+
+The above example can hence, correspond to 3 signals, depending on which ROC you take.
+
+---
+
+## 19 July 2021
+
+---
+
+Example of a two-sided signal (If a signal is not causal or anti causal, it's this)
+
+![A two sided signal example](Screenshot%20from%202021-07-24%2010-21-57.png)
+
+Another example q:
+
+![Example for finite length sequence Z transform](Screenshot%20from%202021-07-24%2010-29-50.png)
+
+Table with signals and ROCs
+
+![Nice table](Screenshot%20from%202021-07-24%2010-39-13.png)
+
+Did more examples, a little confused about why polesa at infinity are weird. 
+
+Poles for a **real signal** always exist in conjugate pairs. Zeroes exist as complex conjugate pairs.
+
+---
+
+## 23 July 2021
+
+---
+
+## 24 July 2021
+
+---
+
+### Z Transform for LTI system / Filter
+
+![Schematic of an LTI system](Screenshot%20from%202021-07-24%2011-06-21.png)
+
+Input output pairs for this system 
+
+- $\delta(n) \to h[n]$
+
+- $e^{j\omega n} \to H(e^{j\omega})\cdot e^{j\omega n} $
+
+- $z^n \to H(z) \cdot z^n$
+
+$z^n$ are EIGENFUNCTIONS of the LTI system, as they are general complex exponentials.
+
+#### Equivalent representations of an LTI system
+
+$$H(e^{j\omega}) \ (DTFT) \longleftrightarrow h[n] \longleftrightarrow H(z) \ (+\ ROC)$$
+
+Ex:
+
+$h[n] = a^n\cdot u[n] \longleftrightarrow H(e^{j\omega}) = 1/(1 - ae^{-j\omega}) \longleftrightarrow H(z) = z/(z-a) = 1/(1-az^{-1})$
+
+As noticed before, DTFT may not exist, but z transform may exist (ROC does not contain unit circle).
+
+### System analysis using Z transform
+
+- When is a system causal?
+  - The system output should not depend on future inputs.
+
+    $y[n] = \displaystyle\sum_{m = -\infty}^{\infty} h[m]\cdot x[n - m]$
+
+    Here, in this convolution sum, $x[n-m]$ for m < 0 should not appear. So $h[m] = 0 \forall m < 0$.
+
+  - In terms of the z transform, we say that a system is causal if
+
+    $H(z) = \displaystyle\sum_{m = 0}^{\infty} h[n] \cdot z^{-n}$
+
+    and ROC is of the form $|z| > r$. ROC is basically outside the outermost pole in z plane. This directly implies that it cannot have a pole at infinity.
+
+- When is a system stable?
+  - Bounded input gives us a bounded output (BIBO stability). The condition on h[n] is
+  
+    $\displaystyle\sum_{-\infty}^{\infty} |h[n]| < \infty$
+
+    So, we get
+
+    ![BIBO stability](Screenshot%20from%202021-07-24%2011-33-16.png)
+
+    We can infer that unit circle is part of the ROC of h[n]. So this is our condition for stability.
+  
+Examples
+![Examples for checking causality and stability](Screenshot%20from%202021-07-24%2011-38-29.png)
+
+- When is a system causal and stable?
+  - When it is causal, and stable =P.
+  - Combining the above two conditions, we get the condition "A causal LTI system is stable iff all the poles are inside the unit circle."
+
+LTI systems are characterised by **linear constant coefficient difference equations**.
+
+Examples of linear constant coefficient difference equations:
+
+- $y[n] = x[n] - x[n-1]$
+  For $y[n]$ to be this with $x[n]$ as input to an LTI system, we can deduce that the impulse response is
+
+  $h[n] = \delta[n] - \delta[n-1]$
+
+  $H(e^{j\omega}) = 1 - e^{-j\omega}$
+  
+  $H(z) = 1 - z^{-1}, \ |z| > 0$
+
+- $y[n] = x[n] + x[n-1]/3 + y[n-1]/2$
+
+  This is a little more complex than the previous one as it has something like a feedback. Here, finding $h[n]$ is not easy, but H(z) is.
+
+  Taking z transform of y,
+
+  $Y(z) = X(z) + X(z)\cdot z^{-1}/3 + Y(z)\cdot z^{-1}/2$
+
+  So,
+
+  $Y(z)\cdot [1 - z^{-1}/2] = X(z)[1 + z^{-1}/3]$
+
+  Which gives us,
+
+  $Y(z)/X(z) = H(z) = [1 + z^{-1}/3]/[1 - z^{-1}/2]$
+
+  $H(X) = (z + 1/3)/(z - 1/2)$
+
+  This gives us 2 possible systems which can be found using the inverse Z transform.
+
+  ![Inverse FT computation](Screenshot%20from%202021-07-24%2012-07-58.png)
+
+Both above examples can be easily implemented. The first one is called FIR filter(Finite impulse response filter) while the second is called IIR filter (infinite impulse response).
+
+In general:
+
+$$\displaystyle\sum_{k = 0}^{N} a_k\cdot y[n-k] = \sum_{l = 0}^{M} b_l\cdot x[n-l]$$
+
+Taking z transform
+
+$$\frac{Y(z)}{X(z)} = H(z) = \frac{\displaystyle\sum_{l = 0}^{M}b_l\cdot z^{-l}}{\displaystyle\sum_{k = 0}^{N}a_k\cdot z^{-k}}$$
+
+Difference equations are easy to implement in a computer.
+
+### Inverse system
+
+A system that nullifies the effect of another system. If $H_1(z)$ and $H_2(z)$ are the responses of the system and its inverse, then
+
+$$H_1(z)\cdot H_2(z) = 1$$
