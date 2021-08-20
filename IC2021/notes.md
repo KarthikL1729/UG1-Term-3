@@ -159,7 +159,7 @@ If f is a function, then Support(f) or sup(f) is all the inputs in its domain th
 
 Proof for $H(X, Y) = H(X) + H(Y|X)$
 
-$H(X|Y) = \displaystyle\sum_{y \in sup(P_y)} P_Y(y)\cdot H(X|Y = y)$ 
+$H(X|Y) = \displaystyle\sum_{y \in sup(P_y)} P_Y(y)\cdot H(X|Y = y)$
 
 where
 
@@ -491,7 +491,7 @@ Atypical sequences are sequences where the distribution is very different from t
 
 As $n \to \infty$, the probability of atypical sequences tends to zero.
 
-**Block to block source coding**
+### Block to block source coding
 
 Assign a unique codeword of length 'l'to each typical sequence.
 
@@ -610,7 +610,7 @@ $$Rate \ of \ \mathcal{C} = \frac{log_{2}|\mathcal{C}|}{n}$$
 Unit -> bits per channel use
 Higher the rate, more the chance of error, as there is more chance of a many one system forming.
 
-**Probabilistically noisy channel (or) Random channel**
+### Probabilistically noisy channel (or) Random channel
 
 Same input can give many different outputs with different probabilities. We use conditional probability here.
 
@@ -644,7 +644,7 @@ $R(\mathcal{C}) = max_{P_X}I(X;Y)$
 
 This is also called as the **"Channel capacity"** denoted by C.
 
-**Channel Coding theorem (Converse of the achievability discussed above)**
+### Channel Coding theorem (Converse of the achievability discussed above)
 
 No matter what we do, we CANNOT get a code with $rate > C$ and expect small probability of error.
 
@@ -703,7 +703,7 @@ We can assume a venn diagram like image of the codewords and radius as Hamming d
 
 $|\mathcal{C}| \leq \frac{2^n}{|S(C)|}$
 
-Now here, $S(C) = n\choose np$ and we can substitue that in the expression. Now, to find rate
+Now here, $|S(C)| =$ $n\choose np$ and we can substitue that in the expression. Now, to find rate
 
 $log|\mathcal{C}| \leq n - log(|S(C)|)$
 The second term is approximately $nH_2(p)$ (From source coding).
@@ -836,7 +836,7 @@ Remark: We construct the tree from smallest length codewords to largest length. 
 
 Now, if we have an RV X with a probability distribution $P_X$, we want to obtain the collection of integers $l_1, ..l_k$ such that Kraft inequality is satisfied. Then we can construct the code as shown above. We can technically pick any $l_i$ that satisfies it, but then we need to minimise the average length of the code as well. So we give small $l_i$ for larger $p_i$ and vice versa. Essentially, more probable symbols get smaller codewords.
 
-**Idea behind Shannon Fano codes**
+### Idea behind Shannon Fano codes
 
 To do what we stated above, we can fix $l_i = ceil(log(1/p_i))$ where $p_i$ is probability of ith symbol. Clearly, $l_1 \geq 1$. Now checking Kraft's inequality,
 
@@ -979,7 +979,7 @@ Example:
 
 ---
 
-**Huffman code - Proof of optimality**
+### Huffman code - Proof of optimality
 
 Claim:
 

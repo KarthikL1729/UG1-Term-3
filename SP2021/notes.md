@@ -1,5 +1,7 @@
 # Signal Processing Course
 
+## Prof : Santosh Nannuru
+
 ## 24 May 2021
 
 ---
@@ -69,7 +71,7 @@ Analysis equation:
 
 $\to a_0 = c_0$ (from trigonometric series)
 
-$\to a_k = \frac{1}{T} \cdot\displaystyle \left (\int_{<T>} x(t) \cdot e^{-jk\omega_0t}\;dt\right)$
+$\to a_k = \displaystyle \frac{1}{T} \int_{<T>} x(t) \cdot e^{-jk\omega_0t} dt$
 
 Dot product of functions is the integral over their period in this case.
 
@@ -194,7 +196,7 @@ $X(\omega) = \displaystyle\sum_{k = -\infty}^{\infty}2\pi a_k\delta(\omega - k\o
 
 find $x(t)$.
 
-Using the Inverse FT formula, 
+Using the Inverse FT formula,
 
 $\to$ $x(t) = \frac{1}{2\pi}\displaystyle\int_{-\infty}^{\infty}X(\omega)\cdot e^{j\omega t} d\omega$
 
@@ -347,7 +349,7 @@ Working shown below.
 
 So the complex sinusoid is an EIGENFUNCTION, and the Fourier transform $H(w_0)$ is the EIGENVALUE.
 
-If we give a periodic signal as input to an LTI system, the same happens, as we can represent all periodic signals as a sum of complex sinusoids by their Fourier Series representation. If $x(t)$ is a periodic function, 
+If we give a periodic signal as input to an LTI system, the same happens, as we can represent all periodic signals as a sum of complex sinusoids by their Fourier Series representation. If $x(t)$ is a periodic function,
 
 $x(t) = \displaystyle\sum_{k = -\infty}^{\infty} a_k e^{j\omega_0 kt}$
 
@@ -360,7 +362,7 @@ Working shown below
 ![Workingcos](Screenshot%20from%202021-06-07%2000-12-13.png)
 As seen, the final function is just scaled and phase shifted.
 
-Note, 
+Note,
 $|H(\omega)| \to$ Magnitude response
 $\angle H(\omega) \to$ Phase response ($\theta$ in the above image)
 
@@ -443,7 +445,6 @@ The plots for those functions are as given below.
 
 **Multiplication property:**
 
-
 $$x(t) \leftrightarrow X(\omega) \ and \ y(t) \leftrightarrow Y(\omega)$$
 $\implies x(t)y(t) \longleftrightarrow \frac{1}{2\pi}[X(\omega)*Y(\omega)]$
 
@@ -486,7 +487,7 @@ We can reconstruct a band limited signal perfectly.
 
 **Band limited singal:** A signal $x(t)$ is band limited if there is a frequency $\omega_m$ such that the FT $X(\omega)$ is zero for $|\omega| > \omega_m$. Ex: speech signals only extend upto a certain frequency.
 
-**Sampling theorem**
+### Sampling theorem
 
 A Band limited signal with some maximum frequency $\omega_m$ can be perfectly recovered/reconstructed from its samples if the sampling frequency $\omega_s$ satisfies
 $$\omega_s > 2\omega_m$$
@@ -568,7 +569,7 @@ So,
 
 $$x_r(t) = x_p(t) * h_{LPF}(t)$$
 
-**Ideal Reconstruction**
+### Ideal Reconstruction
 
 If we take an ideal LPF, we get $h_{LPF}(t)$ as the sinc function.
 
@@ -583,7 +584,7 @@ This ideal reconstruction is basically a combination of weighted and shifted sin
 
 THIS IS CALLED SINC INTERPOLATION.
 
-**Non ideal reconstructions**
+### Non ideal reconstructions
 
 - Zero order hold reconstruction
   This basically takes the sample and holds its value till the next sample, and so on, so the graph looks a little like steps if the samples are spaced out.
@@ -702,7 +703,7 @@ For example, if we take $cos(5n)$, as 5 does not satisfy that condition for any 
 
 ---
 
-- $e^{j\omega n} \to$ Highest frequency = $\plusmn pi$, Lowest frequency = 0.
+$e^{j\omega n} \to$ Highest frequency $= \pm \pi$, Lowest frequency = 0.
 
 ![sinf](Screenshot%20from%202021-07-05%2015-29-47.png)
 
@@ -723,13 +724,13 @@ Examples:
 - $y[n] = x[n] + x[n-1]$, is LTI.
 - $y[n] = nx[n]$, is only linear.
 
-**Representing signals using impulses**
+#### Representing signals using impulses
 
 $x[n] = x[0]\delta[n] + x[1]\delta[n - 1] + x[-1]\delta[n + 1]......$
 
 Impulses in discrete time are well behaved, and are just equal to one, not tending to infinity or something.
 
-**Impulse response of LTI system**
+#### Impulse response of LTI system
 
 $\delta[n] \to h[n]$ in LTI system.
 
@@ -845,7 +846,7 @@ Continuing from last class...
   ![der](Screenshot%20from%202021-07-08%2021-04-06.png)
   This is like a periodic sinc, with period $2\pi$, and is real valued.
 
-**Discrete time LTI systems analysis using DTFT**
+### Discrete time LTI systems analysis using DTFT
 
 When $x[n] = e^{j\omega n}$,
 
@@ -962,7 +963,7 @@ $X[k + N] = X[k]$
 
 $x[n + N] = x[n]$
 This works if we want to extend the intial n length sequence periodically.
-Bascially when we sample the DTFT, we get a periodic discrete signal in frequency domain. This sampling is done by multiplying the DTFT by an impulse train. 
+Bascially when we sample the DTFT, we get a periodic discrete signal in frequency domain. This sampling is done by multiplying the DTFT by an impulse train.
 
 So, we can use convolution property here, which says that this will be equivalent to convolution in time domain, with another impulse train (as DFT of impulse train is impulse train). This gives us our periodic time domain signal, which is basically copies of our original n point time domain signal.
 
@@ -1001,6 +1002,55 @@ Ex 2:
 Recap of DFT till now:
 
 ![Recap](Screenshot%20from%202021-07-24%2007-23-46.png)
+
+---
+
+## 14 July 2021
+
+---
+
+- Direct DFT computation $\to O(N^2)$, multiplication and addition operations.
+
+- Radix 2 FFT (Decimation in time algorithm)
+
+  Assume $N = 2^m$
+
+  By decimation in time, we can represent the DFT as a sum of two DFTs.
+
+  $X[k] = G_1[k] + W_N^k \cdot G_2[k], \ \forall k = 0, 1, ..., N/2 - 1$
+  $X[k + N/2] = G_1[k] - W_N^k \cdot G_2[k], \ \forall k = 0, 1, ..., N/2 - 1$
+
+  $G_1[k]$ and $G_2[k]$ are N/2 point DFTs. Diagrammatically, we get,
+
+  ![Structure of the above equations, Butterfly diagram](Screenshot%20from%202021-07-28%2015-49-05.png)
+
+  We can recursively perform decimation in time to achieve a lower complexity. Each butterfly diagram has 1 complex multiplication and 2 complex additions. One N point can be split to 2 N/2 point, that can be further split into four N/4 point DFTs, and so on until we get 2 point DFTs. 2 points give one butterfly, so N points will have N/2 butterflies. So for an 8 point DFT, we will have 4 multiplications and 8 additions per stage. A stage here refers to a recursive step.
+
+  So, in general, for a $N = 2^m$ point DFT, we have
+  
+  - Total multiplications = $N/2 + N/2 + ....$ (m times) = $N/2 log_2(N)$
+  
+  - Total additions = $N + N + ....$ (m times) = $N log_2(N)$
+
+  This is $O(Nlog_2(N))$ complexity, which is a very sizable decrease from $O(N^2)$.
+
+  ![Example simplification of Radix 2 FFT for N = 8](Screenshot%20from%202021-07-28%2021-48-29.png)
+
+  If we take N = $2^{10}$, direct computation gives us approximately $2^{20}$ operations, while FFT gives us $2^9 \cdot 10$ computations, which is a huge improvement.
+
+  Few remarks on the FFT
+
+  - Radix need not only be 2, can be other numbers as well, usually powers of 2.
+
+  - The Cooley Tukey algorithm uses a composite number (not a power of 2) N to implement a divide and conquer algorithm.
+  
+  - Zero padding always helps us reach the required N.
+
+  - Inverse DFT also has a decimation in time implementation of a similar kind because it is very similar to DFT.
+
+  - DFTs are used so often that we get ICs specifically designed just for that purpose.
+  
+  - Radix 2 FFT (decimation in frequency) is another method, but it does not give us any benefits in terms of computation when compared to decimation in time.
 
 ---
 
@@ -1082,13 +1132,89 @@ Table with signals and ROCs
 
 ![Nice table](Screenshot%20from%202021-07-24%2010-39-13.png)
 
-Did more examples, a little confused about why polesa at infinity are weird. 
+Did more examples, a little confused about why poles at infinity are weird.
 
 Poles for a **real signal** always exist in conjugate pairs. Zeroes exist as complex conjugate pairs.
 
 ---
 
 ## 23 July 2021
+
+---
+
+Ex:
+
+![Another example](Screenshot%20from%202021-07-25%2000-39-58.png)
+
+The above example has no DTFT as the unit circle in not part of its ROC.
+
+### Inverse Z transform
+
+This refers to finding $x[n]$ given $X(z)$ and the ROC.
+
+The general method for finding the inverse z transform of a given function is by using complex integrals, closed contour integration in the ROC using Cauchy's integral theorem (RA stuff). Won't be doing all that here.
+
+We are mostly interested in only a few cases, so we'll learn those.
+
+- Case $\to$ Finite polynomial terms (in $z$ and $z^{-1}$)
+
+  Ex:
+
+  $X(z) = 6z^{-2} + z^{-1} + z + 4z^3$
+
+  ROC $\to$ C
+  This is already in the form of a summation of coefficents with powers of z. So we get the sequence $x[n] = \{4, 0, 1, 0, 1, 6\}$ where we take the zero power coefficient as the zero indexed term.
+
+- Case $\to$ when X(z) is a ratio of polynomials
+  
+  $X(z) = N(z)/D(z)$
+
+  ROC $\to |z| > 1$
+
+  Here, we will use partial fractions.
+
+  ![Example of using partial fractions (part 1)](Screenshot%20from%202021-07-25%2000-58-32.png)
+
+  The z transform of this format has not been done yet, so this will be continued a little later in the lecture.
+
+### Properties of Z transform
+
+- Linearity
+  
+  $x_1[n] \longleftrightarrow X_1(z)$, ROC : $R_1$\
+  $x_2[n] \longleftrightarrow X_2(z)$, ROC : $R_2$\
+  $\alpha x_1[n] + \beta x_2[n] \longleftrightarrow \alpha X_1(z) + \beta X_2(z)$, ROC contains $R_1 \cap R_2$, may be bigger.
+
+- Time-shift
+
+  $x[n] \longleftrightarrow X(z)$, ROC : $R$\
+  $x[n - n_0] \longleftrightarrow z^{-n_0}\cdot X(z)$, ROC : $R \pm \{0, \infty\}$, as it can change the poles and zeroes at these places.
+
+  Ex:
+
+  $x[n] = a^n\cdot u[n]$, find Z transform of $x[n-1]$ and $x[n+1]$.
+
+  $a^n\cdot u[n] \longleftrightarrow z/(z-a)$, $|z| > a$
+
+  $\implies a^{n-1}\cdot u[n-1] \longleftrightarrow z^{-1}\cdot z/(z-a) = 1/(z-a)$, $|z| > a$
+
+  $\implies a^{n+1}\cdot u[n+1] \longleftrightarrow z\cdot z/(z-a) = z^2/(z-a)$, $(|z| > a) - \{\infty\}$ as infinity becomes a pole in this case.
+
+Continuing that partial fraction example from before
+
+![Example of using partial fractions (part 2)](Screenshot%20from%202021-07-25%2016-28-42.png)
+
+- Time reversal
+  
+  $x[n] \longleftrightarrow X(z)$, ROC : $R$\
+  $x[-n] \longleftrightarrow X(1/z), \ i.e.\ X(z^{-1})$
+
+- Convolution
+  
+  $x_1 \longleftrightarrow X_1$, ROC : $R_1$\
+  $x_2 \longleftrightarrow X_2$, ROC : $R_2$\
+
+  $x_1[n] * x_2[n] \longleftrightarrow X_1(z)\cdot X_2(z)$, ROC contains $R_1 \cap R_2$, may be bigger.
 
 ---
 
@@ -1100,11 +1226,13 @@ Poles for a **real signal** always exist in conjugate pairs. Zeroes exist as com
 
 ![Schematic of an LTI system](Screenshot%20from%202021-07-24%2011-06-21.png)
 
-Input output pairs for this system 
+$H(z)$ is called the system function, or the transfer function.
+
+Input output pairs for this system
 
 - $\delta(n) \to h[n]$
 
-- $e^{j\omega n} \to H(e^{j\omega})\cdot e^{j\omega n} $
+- $e^{j\omega n} \to H(e^{j\omega})\cdot e^{j\omega n}$
 
 - $z^n \to H(z) \cdot z^n$
 
@@ -1147,6 +1275,7 @@ As noticed before, DTFT may not exist, but z transform may exist (ROC does not c
     We can infer that unit circle is part of the ROC of h[n]. So this is our condition for stability.
   
 Examples
+
 ![Examples for checking causality and stability](Screenshot%20from%202021-07-24%2011-38-29.png)
 
 - When is a system causal and stable?
@@ -1182,7 +1311,7 @@ Examples of linear constant coefficient difference equations:
 
   $Y(z)/X(z) = H(z) = [1 + z^{-1}/3]/[1 - z^{-1}/2]$
 
-  $H(X) = (z + 1/3)/(z - 1/2)$
+  $H(z) = (z + 1/3)/(z - 1/2)$
 
   This gives us 2 possible systems which can be found using the inverse Z transform.
 
@@ -1205,3 +1334,153 @@ Difference equations are easy to implement in a computer.
 A system that nullifies the effect of another system. If $H_1(z)$ and $H_2(z)$ are the responses of the system and its inverse, then
 
 $$H_1(z)\cdot H_2(z) = 1$$
+
+---
+
+## 26 July 2021
+
+---
+
+### Digital Filter Design
+
+#### Equivalent system representations
+
+- $h[n]$
+- $H(e^{j\omega})$
+- $H(z)$ + ROC
+  
+#### Remarks on filter design
+
+We design frequency selective filters. This means we specify what the filter does on the basis of the frequencies it allows and cancels. Ex: Ideal LPF, etc.
+It basically uses convolution sum to do this, and a small error in a process can carry over, causing a large error in the end.
+
+We will focus more on causal and stable filters. If the filter is unstable, for a bounded input, we could get an arbitrarily large output. We prefer avoiding this.
+
+Ideal filters like the ideal LPF for example, are not practical because their impulse response like in the case of sinc is infinite in extent and is also not causal.
+
+![Frequency response of a practically realisable filter](Screenshot%20from%202021-07-26%2011-25-13.png)
+
+We cannot have a perfectly flat response with a non ideal filter as seen in the passband above, and we cannot have a sharp cutoff frequency limit either, it has to span a band as shown in the figure. The figure shows a general filter, and these non idealities have to be kept in mind.
+
+#### Software and tools for filter design
+
+Specificatons are given in terms of:
+
+- Pass-band, stop-band
+
+- Ripples in the pass-band and stop-band
+
+- Filter order, filter type, etc.
+
+The software then designs a filter accordingly. Nice. We don't have to specify all, we only need to give a few specifications, and it will decide the rest.
+
+#### FIR vs IIR filters
+
+We will mostly discuss cases where $H(z)$ is of rational form.
+
+$$\frac{N(z)}{D(z)} = H(z) = \frac{\displaystyle\sum_{l = 0}^{M}b_l\cdot z^{-l}}{\displaystyle\sum_{k = 0}^{N}a_k\cdot z^{-k}}$$
+
+i.e.,
+
+$$?\displaystyle\sum_{k=1}^{N}a_k y[n-k] = \sum_{l = 0}^{M} b_l x[n-l]$$
+
+- FIR filters
+
+  In an FIR filter, $a_k = 0$. This implies $h[n] = b_n$. FIR filters are used mainly when linear phase is required. This definition of $a_k = 0$ restricts the signal to only look at past inputs, hence enforcing the system to be causal.
+
+  A filter with linear phase means the output signal is just a delayed version of the input signal. If the phase is not linear, then the signal may be distorted.
+
+  Ex:
+
+  With linear phase (FIR), (input $\to$ output format below)
+
+  $sin(\omega_1n) + sin(\omega_2n) + sin(\omega_3n) \to sin(\omega_1(n - n_0)) + sin(\omega_2(n - n_0))$
+
+  Assuming, $\omega_3$ is nullified by the filter.
+
+  With non linear phase, we get something like
+
+  $sin(\omega_1n) + sin(\omega_2n) + sin(\omega_3n) \to sin(\omega_1(n - n_1)) + sin(\omega_2(n - n_2))$
+
+  As the components are shifted by different ammounts, the signal is distorted.
+
+- IIR filters
+
+  At least one of the $a_k$s is non zero. Implementation using difference equation still has finite computations, which is nice.
+
+  They cannot have linear phase. For a given filter specification, the benefit that IIR filters have is that they need a lesser number of coefficients than an FIR filter. This helps us reduce the number of computations required I guess. So unless linear pase is an absolute requirement, we always use IIR filters, as they are faster and require less computations.
+
+---
+
+## 28 July 2021
+
+---
+
+---
+
+## 30 July 2021
+
+---
+
+- FIR filters : Symmetric and anti symmetric filters for linear phase.
+- Method of windows and frequency sampling used in FIR filter design.
+
+### IIR Filter design (Causal and stable)
+
+- No linear phase here.
+
+- Benefit over FIR $\to$ fewer parameters for a similar application.
+  
+- System function
+  $$H(z) = \frac{\displaystyle\sum_{k = 0}^{M}b_k\cdot z^{-k}}{1 + \displaystyle\sum_{l = 1}^{N}a_l\cdot z^{-l}}$$
+
+- Common practice $\to$ deisgn digital IIR filters starting from analog IIR filters. Many such well studied analog filters already exist. This is because they were studied a lot previously. Ex: Butterworth filters, Chebyshev filters, Elliptic filters, etc.
+
+An analog filter is a continuous time LTI system. Assuming that the system has an impulse response $h_a(t)$, we have
+
+![Representations of the system](Screenshot%20from%202021-07-30%2011-11-29.png)
+
+#### IIR Filter design by impulse invariance
+
+Sample the analog IIR impulse response to get the discrete time domain response.
+
+Time domain: $h[n] = h_a(nT_s)$
+
+Frequency domain: $H(e^{j\omega} = 1/T_s \displaystyle\sum_{-\infty}^{\infty} H_a((\omega - 2\pi k)/T_s)$
+
+![Sampling effects](Screenshot%20from%202021-07-30%2011-21-57.png)
+
+We cannot get HPF with this method as it would cause a VERY significant amount of aliasing when sampling (Not even close to bandlimited). LPF can be done this way if the aliasing due to sampling is found to be negligible.
+
+Complex domain : Assume $H_a(s)$ has a partial fraction expansion. So it will be of the form
+
+$$H_a(s) = \displaystyle\sum{k=1}^{N} c_k/(s - P_k)$$, distinct poles at $P_k$.
+
+$$\frac{1}{s - a} \longleftrightarrow e^{at}u(t)$$
+
+In analog systems, all poles must lie in the left half plane of the s plane for a system to be causal and stable. On sampling
+
+$$h[n] = h_a(nT_s) = \displaystyle\sum_{k=1}^{N} c_k e^{P_knT_s} u(nT_s)$$
+
+This implies that
+
+$$H(z) = \displaystyle\sum_{k=1}^{N} c_k z/(z - e^{P_kT_s},  \ \ \ |z| > |e^{P_kT_s}|$$
+
+Analog pole at $P_k$ $\to$ digital pole at $e^{P_kT_s}$. Now, if analog system is causal and stable, i.e. $real(P_k) < 0$, ten $|e^{P_kT_s}| < 1$. This implies that the digital system is ALSO stable and causal.
+
+So now we have the poles and zeroes of the filter, which will let us construct a filter with finite computations.
+
+#### IIR filter design by Bilinear transofrmation
+
+This method transforms $H_a(s) \longrightarrow H(z)$ directly.
+
+Using $s = \frac{2}{T} (1 - z^{-1})/(1 + z^{-1})$. T is a parameter that helps us adjust things.
+
+This maps left half plane of s plane inside the unit circle in z plane and maps the $j\omega$ axis of s plane to the unit circle only once (only one rotation = complete imaginary axis). This fixes the drawback of aliasing that we faced in the previous method.
+
+![Weird stuff, but this maps $\omega_d$ from $-\pi$ to $\pi$ for all the values of $w_a$, which is the whole imaginary axis](Screenshot%20from%202021-07-30%2011-46-24.png)
+
+And that's about it for the course =P
+Take all courses that Santosh sir is responsible for whenever possible :gtodiayuh:
+
+---

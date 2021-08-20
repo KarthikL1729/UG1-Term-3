@@ -1,9 +1,9 @@
 ---
-title: Signal Processing Project Report - Analog to Digital Compression
-author: 
-- Ananya Sane - 2020102007
+title: Signal Processing Project Report – Consistent Sampling and Efficient Signal Reconstruction
+author:  
+- Ananya Sane – 2020102007
   
-- L Lakshmanan - 2020112024
+- L Lakshmanan – 2020112024
 ---
 
 ---
@@ -14,19 +14,21 @@ geometry:
 - heightrounded
 ...
 
-## Project summary
+## Abstract
 
-This paper discusses an efficient alternative for the consistent sampling and reconstruction of a signal.
+This paper (originally authored by Akira Hirabayashi) discusses an efficient alternative for the consistent sampling and reconstruction of a signal.
 
 The major criterion here for reconstruction of signals is consistency. This refers to the reconstruction having the same measurements as the original when measured using the same sampling functions.
 
-The sampling functions and reconstruction fucntions are considered to be linearly independent.
+The sampling functions and reconstruction functions are considered to be linearly independent.
 
 In this paper, the case where we have the same number of sampling functions and reconstruction functions is discussed.
 
 The coefficients of the reconstruction functions are traditionally obtained from the samples by using inner products. This process involves matrix inversion.
 
-The process of inverting a matrix with large amounts of data can be very troublesome and complex. This paper proposes an efficient method to compute the coefficients of consistent reconstruction without involving matrix inversion when we are dealing with shift invariant sampling and shift invariant functions. This method uses the FFT, which is an $O(NlogN)$ operation to achieve a lower complexity.
+The process of inverting a matrix with large amounts of data can be very troublesome and complex. This paper proposes an efficient method to compute the coefficients of consistent reconstruction without involving matrix inversion when we are dealing with shift invariant sampling and shift invariant functions.
+
+This method uses the spectral decomposition into known matrices and the FFT, which is an $O(NlogN)$ operation to achieve a lower complexity.
 
 The signals considered here belong to the Hilbert space $H = L^2(0, l)$.
 
@@ -56,19 +58,20 @@ $$\psi_n(x) = \psi_l(x - x_n)$$
 Where
 
 $$\psi_l(x) = \displaystyle\sum_m \psi(x - ml)$$
-(Expressing $\psi_l$ as a summation of the kernel $1\psi(x)$) and,
+(Expressing $\psi_l$ as a summation of the kernel $\psi(x)$) and,
 
 $$x_n = \frac{nl}{N} \ \ \ (n = 0, 1, ..., N-1)$$
 
+We notice that $\psi_l(x)$ is periodic with $l$.
 The kernel $\psi(x)$ is COMPACTLY SUPPORTED on $[\frac{-r}{2}, \frac{r}{2}]$ with $0 < r < l/N$.
 
 $\hat\psi(\omega)$ is the fourier transform of $\psi(x)$.
 
 Similarly, $\{\varphi_k\}_{k=0}^{N-1}$ spans the reconstruction space. The reconstruction space is denoted by $V_r$. The signal f is reconstructed by a linear combination of these functions with coefficients $c_k$.
 
-$$\overline{f} = \displaystyle\sum_{k = 0}^{N-1}c_k \cdot \psi_k$$
+$$\tilde{f} = \displaystyle\sum_{k = 0}^{N-1}c_k \cdot \psi_k$$
 
-where $\overline{f}$ is the reconstruction.
+where $\tilde{f}$ is the reconstruction.
 
 Now if we take the N dimensional coefficient vectors $d$ and $c$, we need an NxN square matrix to satisfy
 
@@ -76,7 +79,13 @@ $$X\cdot d = c$$
 
 So now, our problem is equivalent to finding a suitable matrix X. By our consistency criterion, whatever matrix X we find must give us outputs that satisfy
 
-$$\langle\overline{f}, \psi_n\rangle = \langle f, \psi_n\rangle \ \ \ (n = 0, 1, ..., N-1)$$
+$$\langle\tilde{f}, \psi_n\rangle = \langle f, \psi_n\rangle \ \ \ (n = 0, 1, ..., N-1)$$
+
+The paper details this process of reconstruction using two bases:
+
+- B spline functions
+  
+- Fourier basis
 
 ## List of objectives
 
@@ -84,12 +93,22 @@ $$\langle\overline{f}, \psi_n\rangle = \langle f, \psi_n\rangle \ \ \ (n = 0, 1,
 
 - To understand why the FFT is important in creating efficient algorithms like this.
 
+- Comparison of reconstruction using B Spline functions and Fourier basis in MATLAB.
+
 - To take an analog signal and use the methods discussed in the paper to efficiently reconstruct it in MATLAB.
+
+## Important concepts and short discussion about the existing method
+
+## Proposed method
+
+## Simulations and results
+
+## Conclusion
 
 ## References
 
 - M. Unser, “Splines: A perfect fit for signal and image processing,”
-IEEE Signal Process. Mag., vol. 16, no. 6, pp. 22–38, Nov. 1999.
+  IEEE Signal Process. Mag., vol. 16, no. 6, pp. 22–38, Nov. 1999.
 
 - <https://www.youtube.com/watch?v=jgi8hbOmUmk>
 

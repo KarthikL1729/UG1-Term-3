@@ -477,7 +477,6 @@ Example 3
 ![exq3p1](Screenshot%20from%202021-06-27%2023-48-49.png)
 ![exq3p2](Screenshot%20from%202021-06-27%2023-58-02.png)
 
-
 Cannot relate much after this point, just got more confusing, check probabilitycourse.com for a nice explanation =P
 
 ---
