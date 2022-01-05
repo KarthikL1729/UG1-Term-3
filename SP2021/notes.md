@@ -1,10 +1,11 @@
-# Signal Processing Course
+---
+title: Digital Signal Processing course (Prof. Santosh Nannuru)
 
-## Prof : Santosh Nannuru
+author:  
+- Karthik Lakshmanan
+---
 
 ## 24 May 2021
-
----
 
 - Intro stuff (course overview)
 
@@ -32,8 +33,6 @@ Discrete time and continuous time signals are differentiated according to the di
 ---
 
 ## 26 May 2021
-
----
 
 ### Fourier series
 
@@ -146,8 +145,6 @@ To summarise,
 
 ## 28 May 2021
 
----
-
 ## Fourier Transform, continued
 
 - Both time and frequency are continuous variables here, whereas frequency was discrete in Fourier series.
@@ -184,8 +181,6 @@ Main use of $\delta(t)$ is the sifting property, which is,
 
 ## 31 May 2021
 
----
-
 Note: All double sided arrows imply FT here, or FS in a few places.
 
 The Fourier Transform can be mapped to the Fourier series too.
@@ -200,7 +195,8 @@ Using the Inverse FT formula,
 
 $\to$ $x(t) = \frac{1}{2\pi}\displaystyle\int_{-\infty}^{\infty}X(\omega)\cdot e^{j\omega t} d\omega$
 
-![Solution](../SP2021/Screenshot%20from%202021-06-03%2014-25-05.png)
+![Solution](Screenshot%20from%202021-06-03%2014-25-05.png)
+
 The foruier series only exists for periodic $x(t)$.
 
 ## Properties of Fourier Transform
@@ -230,8 +226,6 @@ Then a discussion about playback speeds on YT, so higher speeds imply the same v
 ---
 
 ## 2 June 2021
-
----
 
 **Note:** Fourier Transform is a special case of Laplace transform.
 
@@ -325,8 +319,6 @@ The first $x(t)$ expression in the above image is a weighted linear representati
 
 ## 4 June 2021
 
----
-
 ![schematic of an LTI system](Screenshot%20from%202021-06-06%2023-50-42.png)
 This is what we learned about LTI systems in the previous class.
 
@@ -393,8 +385,6 @@ This system ~~boosts~~ SCALES the weights of the frequencies.
 
 ## 7 June 2021
 
----
-
 LTI systems can be interpreted as ***Frequency selective filters***. Mainly because $H(\omega)$ can nullify any frequencies by having that component with zero wieght, hence excluding that frequency from the final output.
 Example q to demonstrate Convolution property:
 ![Exq1](Screenshot%20from%202021-06-07%2011-11-19.png)
@@ -415,8 +405,6 @@ We can design filters that can give something close to an ideal filter, and deal
 ---
 
 ## 9 June 2021
-
----
 
 ### Analysis of a series RC circuit (using Fourier transform)
 
@@ -464,8 +452,6 @@ We'll need to scale it as required. Low pass filter to get that middle copy.
 ---
 
 ## 11 June 2021
-
----
 
 ### Sampling Theorem
 
@@ -523,8 +509,6 @@ $x_p(t) = \displaystyle\sum_{-\infty}^{\infty} x(kT_s)\delta(t - kT_s)$
 ---
 
 ## 14 June 2021
-
----
 
 Time limited signals may or may not be recoverable from sampling, they may not be band limited.
 
@@ -596,8 +580,6 @@ THIS IS CALLED SINC INTERPOLATION.
 
 ## 16 June 2021
 
----
-
 For real signals, we can ignore the negative frequency spectrum and modify the graph to make it smaller and stuff.
 
 - Zero Order Hold reconstruction (Piecewise constant approximation)
@@ -621,8 +603,6 @@ This just means pass the input signal into a low pass filter before sampling, wh
 ---
 
 ## 18 June 2021
-
----
 
 Recap
 
@@ -654,8 +634,6 @@ Examples:
 ---
 
 ## 21 June 2021
-
----
 
 Complex exponentials and sinusoids revision
 
@@ -700,8 +678,6 @@ For example, if we take $cos(5n)$, as 5 does not satisfy that condition for any 
 ---
 
 ## 23 June 2021
-
----
 
 $e^{j\omega n} \to$ Highest frequency $= \pm \pi$, Lowest frequency = 0.
 
@@ -764,8 +740,6 @@ $$g(\omega) = \displaystyle\sum_{-\infty}^{\infty} x[n]e^{-j\omega n}$$
 
 ## 25 June 2021
 
----
-
 Notice that the DTFT for any signal is periodic with period $2\pi$. As shown below,
 
 $g(\omega + 2\pi) = \displaystyle\sum_{-\infty}^{\infty} x[n]\cdot e^{-j(\omega+2\pi) n} = \sum_{-\infty}^{\infty} x[n]\cdot e^{-j\omega n} \cdot e^{-j2\pi n} = \sum_{-\infty}^{\infty} x[n]\cdot e^{-j\omega n} = g(\omega)$
@@ -786,8 +760,6 @@ DTFT can also be compared to Fourier Series. It's like the reverse, because here
 ---
 
 ## 28 June 2021
-
----
 
 Organization of Fourier Analysis:
 ![or](Screenshot%20from%202021-07-08%2019-58-38.png)
@@ -835,8 +807,6 @@ Standard signals and their DTFT:
 ---
 
 ## 30 June 2021
-
----
 
 Continuing from last class...
 
@@ -895,8 +865,6 @@ Filters:
 
 ## 2 July 2021
 
----
-
 Properties of DTFT
 
 - Convolution
@@ -945,8 +913,6 @@ Derivation for impulse train:
 ---
 
 ## 5 July 2021
-
----
 
 Recap:
 ![Recap of lec 18](Screenshot%20from%202021-07-12%2000-01-15.png)
@@ -997,8 +963,6 @@ Ex 2:
 
 ## 7 July 2021
 
----
-
 Recap of DFT till now:
 
 ![Recap](Screenshot%20from%202021-07-24%2007-23-46.png)
@@ -1006,8 +970,6 @@ Recap of DFT till now:
 ---
 
 ## 14 July 2021
-
----
 
 - Direct DFT computation $\to O(N^2)$, multiplication and addition operations.
 
@@ -1055,8 +1017,6 @@ Recap of DFT till now:
 ---
 
 ## 16 July 2021
-
----
 
 ### Z transform
 
@@ -1118,8 +1078,6 @@ The above example can hence, correspond to 3 signals, depending on which ROC you
 
 ## 19 July 2021
 
----
-
 Example of a two-sided signal (If a signal is not causal or anti causal, it's this)
 
 ![A two sided signal example](Screenshot%20from%202021-07-24%2010-21-57.png)
@@ -1139,8 +1097,6 @@ Poles for a **real signal** always exist in conjugate pairs. Zeroes exist as com
 ---
 
 ## 23 July 2021
-
----
 
 Ex:
 
@@ -1219,8 +1175,6 @@ Continuing that partial fraction example from before
 ---
 
 ## 24 July 2021
-
----
 
 ### Z Transform for LTI system / Filter
 
@@ -1339,8 +1293,6 @@ $$H_1(z)\cdot H_2(z) = 1$$
 
 ## 26 July 2021
 
----
-
 ### Digital Filter Design
 
 #### Equivalent system representations
@@ -1412,15 +1364,7 @@ $$?\displaystyle\sum_{k=1}^{N}a_k y[n-k] = \sum_{l = 0}^{M} b_l x[n-l]$$
 
 ---
 
-## 28 July 2021
-
----
-
----
-
 ## 30 July 2021
-
----
 
 - FIR filters : Symmetric and anti symmetric filters for linear phase.
 - Method of windows and frequency sampling used in FIR filter design.
